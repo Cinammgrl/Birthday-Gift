@@ -14,6 +14,7 @@
       background-size: 40px 40px;
       color: #b30059;
       text-align: center;
+      overflow-x: hidden;
     }
 
     h1 {
@@ -36,15 +37,15 @@
       position: relative;
       width: 100%;
       height: 500px;
+      overflow: hidden;
     }
 
-    .heart {
+    .cuoricino {
       position: absolute;
       width: 50px;
       height: 50px;
-      background-image: url('https://i.ibb.co/VC0yX3B/red-heart.png'); /* immagine cuore */
-      background-size: cover;
       cursor: pointer;
+      pointer-events: auto;
     }
 
     #message {
@@ -57,17 +58,32 @@
       margin-top: 20px;
       width: 150px;
     }
+
+    button.riprova {
+      margin-top: 15px;
+      font-size: 20px;
+      padding: 8px 20px;
+      background-color: #ff66b2;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      color: white;
+    }
   </style>
 </head>
 <body>
 
   <h1>🎯 Gioco di Cupido 💘</h1>
-  <img id="cupido" src="cupido.gif" alt="Cupido" style="width:200px; display:block; margin: 0 auto;">
+  <img id="cupido" src="https://media.giphy.com/media/7XjzA0zvvKQ9l8aJYz/giphy.gif" alt="Cupido">
   <br>
   <button id="start-btn">Avvia Gioco 💞</button>
 
   <div id="game-area"></div>
   <div id="message"></div>
+
+  <audio id="music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     const frasi = [
@@ -83,6 +99,7 @@
     const gameArea = document.getElementById("game-area");
     const message = document.getElementById("message");
     const startBtn = document.getElementById("start-btn");
+    const music = document.getElementById("music");
 
     let index = 0;
 
@@ -91,21 +108,24 @@
       gameArea.innerHTML = "";
       index = 0;
       gameArea.style.display = "block";
+      music.play();
 
       for (let i = 0; i < frasi.length; i++) {
         const heart = document.createElement('img');
-heart.src = 'cuoricino.gif';
-heart.className = 'cuoricino';
+        heart.src = 'https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif'; // GIF cuoricino animato con sfondo trasparente
+        heart.className = 'cuoricino';
         heart.style.top = Math.random() * 400 + "px";
         heart.style.left = Math.random() * (window.innerWidth - 60) + "px";
 
         heart.addEventListener("click", () => {
-          message.textContent = frasi[index];
-          index++;
-          heart.remove();
+          if (index < frasi.length) {
+            message.textContent = frasi[index];
+            heart.remove();
+            index++;
+          }
 
           if (index === frasi.length) {
-            message.textContent = "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.";
+            message.innerHTML = `💖 Hai trovato tutte le frasi d'amore!<br>L'amore vince sempre.<br><br><button class="riprova" onclick='startGame()'>🔄 Riprova</button>`;
             gameArea.style.display = "none";
           }
         });
