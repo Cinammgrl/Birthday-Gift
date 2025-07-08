@@ -1,100 +1,117 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <title>Gioco di Cupido Test</title>
+  <meta charset="UTF-8">
+  <title>Gioco di Cupido 💘</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
   <style>
     body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Sacramento', cursive;
       background-color: #ffe6f0;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    #cupido {
-      width: 180px;
-      margin-bottom: 20px;
-    }
-    #game-area {
-      position: relative;
-      height: 400px;
-      border: 1px solid #b30059;
-      background: radial-gradient(#ffb6c1 2px, transparent 2px);
+      background-image: radial-gradient(#ffb6c1 1px, transparent 1px);
       background-size: 40px 40px;
-      overflow: hidden;
-      margin: 0 auto;
-      max-width: 600px;
-    }
-    .cuoricino {
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      cursor: pointer;
-    }
-    #message {
-      margin-top: 20px;
       color: #b30059;
-      font-size: 20px;
-      min-height: 50px;
+      text-align: center;
     }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 50px;
+    }
+
     #start-btn {
-      font-size: 22px;
-      padding: 10px 20px;
+      font-size: 24px;
+      padding: 10px 30px;
       background-color: #ff99cc;
       border: none;
-      border-radius: 10px;
+      border-radius: 15px;
       cursor: pointer;
-      color: #b30059;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    #game-area {
+      display: none;
+      position: relative;
+      width: 100%;
+      height: 500px;
+    }
+
+    .heart {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+    }
+
+    #message {
+      font-size: 26px;
+      margin-top: 20px;
+      padding: 10px;
+    }
+
+    #cupido {
+      margin-top: 20px;
+      width: 150px;
+    }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <h1>Gioco di Cupido 💘</h1>
-  <img id="cupido" src="https://media.giphy.com/media/7XjzA0zvvKQ9l8aJYz/giphy.gif" alt="Cupido" />
-  
+  <h1>🎯 Gioco di Cupido 💘</h1>
+  <img id="cupido" src="cupido.gif" alt="Cupido">
+  <br>
   <button id="start-btn">Avvia Gioco 💞</button>
 
   <div id="game-area"></div>
-
   <div id="message"></div>
+
+  <audio id="bg-music" loop autoplay>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+  </audio>
 
   <script>
     const frasi = [
-      "“Sei insieme la quiete e la confusione del mio cuore” – Franz Kafka",
-      "“Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento” – Eugenio Montale",
-      "“Sei un cielo stellato” – Cesare Pavese",
-      "“Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà” – Dostoevskij",
-      "“Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica” – Murakami",
-      "“Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte” – Shakespeare",
-      "“Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi.” – D’Annunzio"
+      `"Sei insieme la quiete e la confusione del mio cuore" – Franz Kafka`,
+      `"Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento" – Eugenio Montale`,
+      `"Sei un cielo stellato" – Cesare Pavese`,
+      `"Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà" – Dostoevskij`,
+      `"Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica" – Murakami`,
+      `"Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte" – Shakespeare`,
+      `"Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi." – D’Annunzio`
     ];
 
     const gameArea = document.getElementById("game-area");
     const message = document.getElementById("message");
     const startBtn = document.getElementById("start-btn");
+    const bgMusic = document.getElementById("bg-music");
 
     let index = 0;
 
-    startBtn.addEventListener("click", () => {
-      gameArea.innerHTML = "";
+    function startGame() {
       message.textContent = "";
+      gameArea.innerHTML = "";
       index = 0;
       gameArea.style.display = "block";
 
-      for(let i = 0; i < frasi.length; i++) {
-        const heart = document.createElement("img");
-        heart.src = "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif";
-        heart.className = "cuoricino";
-        heart.style.top = Math.random() * 350 + "px";
-        heart.style.left = Math.random() * 550 + "px";
+      for (let i = 0; i < frasi.length; i++) {
+        const heart = document.createElement('img');
+        heart.src = 'rana.gif'; // tua GIF rinominata
+        heart.className = 'heart';
+        heart.style.top = Math.random() * 400 + "px";
+        heart.style.left = Math.random() * (window.innerWidth - 80) + "px";
 
         heart.addEventListener("click", () => {
           message.textContent = frasi[index];
-          heart.remove();
           index++;
+          heart.remove();
 
-          if(index === frasi.length){
+          if (index === frasi.length) {
             message.textContent = "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.";
             gameArea.style.display = "none";
           }
@@ -102,7 +119,11 @@
 
         gameArea.appendChild(heart);
       }
-    });
+
+      bgMusic.play();
+    }
+
+    startBtn.addEventListener("click", startGame);
   </script>
 
 </body>
