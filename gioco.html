@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Gioco di Cupido 💘</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffe6f0;
+      background-image: radial-gradient(#ffccd5 1px, transparent 1px);
+      background-size: 40px 40px;
+      font-family: 'Sacramento', cursive;
+      color: #d6336c;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-top: 20px;
+    }
+
+    .cuore {
+      width: 60px;
+      height: 60px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Red_Heart.svg/120px-Red_Heart.svg.png') no-repeat center;
+      background-size: contain;
+      position: absolute;
+      cursor: pointer;
+      animation: galleggia 6s ease-in-out infinite;
+    }
+
+    @keyframes galleggia {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-40px); }
+      100% { transform: translateY(0); }
+    }
+
+    .messaggio {
+      font-size: 1.5em;
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    #cupido {
+      width: 100px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: vola 4s infinite alternate;
+    }
+
+    @keyframes vola {
+      0% { bottom: 0; }
+      100% { bottom: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>💘 Colpisci i cuori con Cupido! 💘</h1>
+
+  <img id="cupido" src="https://cdn.pixabay.com/animation/2023/01/15/06/03/06-03-25-133_512.gif" alt="Cupido">
+
+  <div class="messaggio" id="messaggio">Fai clic sui cuoricini per scoprire le frasi! ❤️</div>
+
+  <audio id="musica" autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/06/audio_e15a7c10a3.mp3?filename=romantic-piano-142382.mp3" type="audio/mpeg">
+    Il tuo browser non supporta l'audio HTML.
+  </audio>
+
+  <script>
+    const frasi = [
+      '"Sei insieme la quiete e la confusione del mio cuore." – Franz Kafka',
+      '"Se l\'aria mi raccontasse di te vorrei perdermi per sempre nel vento." – Eugenio Montale',
+      '"Sei un cielo stellato." – Cesare Pavese',
+      '"Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà." – Dostoevskij',
+      '"Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica." – Haruki Murakami',
+      '"Quando non sarai più parte di me, ritaglierò dal tuo ricordo tante piccole stelle..." – William Shakespeare',
+      '"Perché io non so dire quel che i suoi occhi mi fanno provare. Occhi. I suoi." – Gabriele D’Annunzio'
+    ];
+
+    let frasiMostrate = 0;
+
+    function creaCuore() {
+      const cuore = document.createElement('div');
+      cuore.className = 'cuore';
+      cuore.style.top = `${Math.random() * 80 + 10}%`;
+      cuore.style.left = `${Math.random() * 90 + 5}%`;
+
+      cuore.onclick = () => {
+        if (frasiMostrate < frasi.length) {
+          document.getElementById('messaggio').innerText = frasi[frasiMostrate];
+          frasiMostrate++;
+        }
+
+        cuore.remove();
+
+        if (frasiMostrate === frasi.length) {
+          setTimeout(() => {
+            document.getElementById('messaggio').innerText = '🎉 Hai colpito tutti i cuori! L’amore vince sempre! 💕';
+          }, 500);
+        }
+      };
+
+      document.body.appendChild(cuore);
+
+      setTimeout(() => cuore.remove(), 8000);
+    }
+
+    setInterval(() => {
+      if (frasiMostrate < frasi.length) {
+        creaCuore();
+      }
+    }, 1500);
+  </script>
+</body>
+</html>
