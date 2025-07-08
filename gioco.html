@@ -3,116 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <title>Gioco di Cupido 💘</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: #ffe6f0;
-      background-image: radial-gradient(#ffccd5 1px, transparent 1px);
-      background-size: 40px 40px;
       font-family: 'Sacramento', cursive;
-      color: #d6336c;
+      background-color: #ffe6f0;
+      background-image: radial-gradient(#ffb6c1 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #b30059;
       text-align: center;
-      overflow: hidden;
     }
 
     h1 {
-      font-size: 2.5em;
-      margin-top: 20px;
+      margin-top: 30px;
+      font-size: 50px;
     }
 
-    .cuore {
-      width: 60px;
-      height: 60px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Red_Heart.svg/120px-Red_Heart.svg.png') no-repeat center;
-      background-size: contain;
-      position: absolute;
+    #start-btn {
+      font-size: 24px;
+      padding: 10px 30px;
+      background-color: #ff99cc;
+      border: none;
+      border-radius: 15px;
       cursor: pointer;
-      animation: galleggia 6s ease-in-out infinite;
+      margin-bottom: 20px;
     }
 
-    @keyframes galleggia {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-40px); }
-      100% { transform: translateY(0); }
+    #game-area {
+      display: none;
+      position: relative;
+      width: 100%;
+      height: 500px;
     }
 
-    .messaggio {
-      font-size: 1.5em;
+    .heart {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-image: url('https://i.ibb.co/VC0yX3B/red-heart.png'); /* immagine cuore */
+      background-size: cover;
+      cursor: pointer;
+    }
+
+    #message {
+      font-size: 26px;
       margin-top: 20px;
-      padding: 20px;
+      padding: 10px;
     }
 
     #cupido {
-      width: 100px;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: vola 4s infinite alternate;
-    }
-
-    @keyframes vola {
-      0% { bottom: 0; }
-      100% { bottom: 100px; }
+      margin-top: 20px;
+      width: 150px;
     }
   </style>
 </head>
 <body>
-  <h1>💘 Colpisci i cuori con Cupido! 💘</h1>
 
-  <img id="cupido" src="https://i.ibb.co/XJQZJKj/cupido.png" alt="Cupido">
+  <h1>🎯 Gioco di Cupido 💘</h1>
+  <img id="cupido" src="https://i.ibb.co/ck0tR4J/cupido.png" alt="Cupido carino">
+  <br>
+  <button id="start-btn">Avvia Gioco 💞</button>
 
-  <div class="messaggio" id="messaggio">Fai clic sui cuoricini per scoprire le frasi! ❤️</div>
-
-  <audio id="musica" autoplay loop>
-    <source src="https://cdn.pixabay.com/download/audio/2023/03/06/audio_e15a7c10a3.mp3?filename=romantic-piano-142382.mp3" type="audio/mpeg">
-    Il tuo browser non supporta l'audio HTML.
-  </audio>
+  <div id="game-area"></div>
+  <div id="message"></div>
 
   <script>
     const frasi = [
-      '"Sei insieme la quiete e la confusione del mio cuore." – Franz Kafka',
-      '"Se l\'aria mi raccontasse di te vorrei perdermi per sempre nel vento." – Eugenio Montale',
-      '"Sei un cielo stellato." – Cesare Pavese',
-      '"Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà." – Dostoevskij',
-      '"Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica." – Haruki Murakami',
-      '"Quando non sarai più parte di me, ritaglierò dal tuo ricordo tante piccole stelle..." – William Shakespeare',
-      '"Perché io non so dire quel che i suoi occhi mi fanno provare. Occhi. I suoi." – Gabriele D’Annunzio'
+      `"Sei insieme la quiete e la confusione del mio cuore" – Franz Kafka`,
+      `"Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento" – Eugenio Montale`,
+      `"Sei un cielo stellato" – Cesare Pavese`,
+      `"Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà" – Dostoevskij`,
+      `"Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica" – Murakami`,
+      `"Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte" – Shakespeare`,
+      `"Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi." – D’Annunzio`
     ];
 
-    let frasiMostrate = 0;
+    const gameArea = document.getElementById("game-area");
+    const message = document.getElementById("message");
+    const startBtn = document.getElementById("start-btn");
 
-    function creaCuore() {
-      const cuore = document.createElement('div');
-      cuore.className = 'cuore';
-      cuore.style.top = `${Math.random() * 80 + 10}%`;
-      cuore.style.left = `${Math.random() * 90 + 5}%`;
+    let index = 0;
 
-      cuore.onclick = () => {
-        if (frasiMostrate < frasi.length) {
-          document.getElementById('messaggio').innerText = frasi[frasiMostrate];
-          frasiMostrate++;
-        }
+    function startGame() {
+      message.textContent = "";
+      gameArea.innerHTML = "";
+      index = 0;
+      gameArea.style.display = "block";
 
-        cuore.remove();
+      for (let i = 0; i < frasi.length; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.top = Math.random() * 400 + "px";
+        heart.style.left = Math.random() * (window.innerWidth - 60) + "px";
 
-        if (frasiMostrate === frasi.length) {
-          setTimeout(() => {
-            document.getElementById('messaggio').innerText = '🎉 Hai colpito tutti i cuori! L’amore vince sempre! 💕';
-          }, 500);
-        }
-      };
+        heart.addEventListener("click", () => {
+          message.textContent = frasi[index];
+          index++;
+          heart.remove();
 
-      document.body.appendChild(cuore);
-      setTimeout(() => cuore.remove(), 8000);
+          if (index === frasi.length) {
+            message.textContent = "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.";
+            gameArea.style.display = "none";
+          }
+        });
+
+        gameArea.appendChild(heart);
+      }
     }
 
-    setInterval(() => {
-      if (frasiMostrate < frasi.length) {
-        creaCuore();
-      }
-    }, 1500);
+    startBtn.addEventListener("click", startGame);
   </script>
+
 </body>
 </html>
