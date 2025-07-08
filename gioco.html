@@ -38,35 +38,36 @@
       width: 100%;
       height: 500px;
     }
-
+    
     .heart {
-      position: absolute;
-      width: 90px;
-      height: 90px;
-      cursor: pointer;
-    }
-
-    .phrase-popup {
-      position: absolute;
-      background-color: rgba(255, 255, 255, 0.85);
-      color: #b30059;
-      font-size: 22px;
-      padding: 10px 15px;
-      border-radius: 12px;
-      max-width: 300px;
-      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-      pointer-events: none;
-      animation: fadeInOut 3s ease-in-out forwards;
-      z-index: 1000;
-    }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: translateY(-10px); }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-20px); }
-    }
-
+      .heart {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+  }
+      
+  .phrase-popup {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #b30059;
+    font-size: 26px;
+    padding: 15px 20px;
+    border-radius: 15px;
+    max-width: 400px;
+    box-shadow: 4px 4px 15px rgba(0,0,0,0.3);
+    pointer-events: none;
+    z-index: 1000;
+    animation: fadeInOut 6s ease-in-out forwards;
+    text-align: center;
+  }
+      
+ @keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-20px); }
+  }
     #cupido {
       margin-top: 20px;
       width: 150px;
@@ -107,19 +108,23 @@
 
     let index = 0;
 
-    function showPhrase(x, y, text) {
-      const phraseEl = document.createElement("div");
-      phraseEl.className = "phrase-popup";
-      phraseEl.textContent = text;
-      phraseEl.style.top = (y - 40) + "px";
-      phraseEl.style.left = (x - 150 / 2) + "px";
-      document.body.appendChild(phraseEl);
+  function showPhrase(x, y, text) {
+    const phraseEl = document.createElement("div");
+    phraseEl.className = "phrase-popup";
+    phraseEl.textContent = text;
 
-      setTimeout(() => {
-        phraseEl.remove();
-      }, 3000);
-    }
+    const popupWidth = 400;
+    phraseEl.style.top = (y - 70) + "px";
+    phraseEl.style.left = (x - popupWidth / 2) + "px";
 
+    document.body.appendChild(phraseEl);
+
+    setTimeout(() => {
+      phraseEl.remove();
+    }, 6000);
+  }
+</script>
+  
     function startGame() {
       gameArea.innerHTML = "";
       index = 0;
