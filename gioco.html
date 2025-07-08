@@ -14,6 +14,7 @@
       background-size: 40px 40px;
       color: #b30059;
       text-align: center;
+      overflow-x: hidden;
     }
 
     h1 {
@@ -40,15 +41,30 @@
 
     .heart {
       position: absolute;
-      width: 60px;
-      height: 60px;
+      width: 90px;
+      height: 90px;
       cursor: pointer;
     }
 
-    #message {
-      font-size: 26px;
-      margin-top: 20px;
-      padding: 10px;
+    .phrase-popup {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.85);
+      color: #b30059;
+      font-size: 22px;
+      padding: 10px 15px;
+      border-radius: 12px;
+      max-width: 300px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      pointer-events: none;
+      animation: fadeInOut 3s ease-in-out forwards;
+      z-index: 1000;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(-10px); }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-20px); }
     }
 
     #cupido {
@@ -69,7 +85,6 @@
   <button id="start-btn">Avvia Gioco 💞</button>
 
   <div id="game-area"></div>
-  <div id="message"></div>
 
   <audio id="bg-music" loop autoplay>
     <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
@@ -87,33 +102,48 @@
     ];
 
     const gameArea = document.getElementById("game-area");
-    const message = document.getElementById("message");
     const startBtn = document.getElementById("start-btn");
     const bgMusic = document.getElementById("bg-music");
 
     let index = 0;
 
+    function showPhrase(x, y, text) {
+      const phraseEl = document.createElement("div");
+      phraseEl.className = "phrase-popup";
+      phraseEl.textContent = text;
+      phraseEl.style.top = (y - 40) + "px";
+      phraseEl.style.left = (x - 150 / 2) + "px";
+      document.body.appendChild(phraseEl);
+
+      setTimeout(() => {
+        phraseEl.remove();
+      }, 3000);
+    }
+
     function startGame() {
-      message.textContent = "";
       gameArea.innerHTML = "";
       index = 0;
       gameArea.style.display = "block";
 
       for (let i = 0; i < frasi.length; i++) {
         const heart = document.createElement('img');
-        heart.src = 'rana.gif'; // tua GIF rinominata
+        heart.src = 'rana.gif'; // assicurati che abbia sfondo trasparente
         heart.className = 'heart';
         heart.style.top = Math.random() * 400 + "px";
-        heart.style.left = Math.random() * (window.innerWidth - 80) + "px";
+        heart.style.left = Math.random() * (window.innerWidth - 100) + "px";
 
-        heart.addEventListener("click", () => {
-          message.textContent = frasi[index];
-          index++;
-          heart.remove();
+        heart.addEventListener("click", (e) => {
+          if (index < frasi.length) {
+            showPhrase(e.clientX, e.clientY, frasi[index]);
+            index++;
+            heart.remove();
 
-          if (index === frasi.length) {
-            message.textContent = "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.";
-            gameArea.style.display = "none";
+            if (index === frasi.length) {
+              setTimeout(() => {
+                showPhrase(window.innerWidth / 2, 200, "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.");
+              }, 500);
+              gameArea.style.display = "none";
+            }
           }
         });
 
