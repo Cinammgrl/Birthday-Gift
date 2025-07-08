@@ -93,8 +93,9 @@
       gameArea.style.display = "block";
 
       for (let i = 0; i < frasi.length; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
+        const heart = document.createElement('img');
+heart.src = 'cuoricino.gif';
+heart.className = 'cuoricino';
         heart.style.top = Math.random() * 400 + "px";
         heart.style.left = Math.random() * (window.innerWidth - 60) + "px";
 
