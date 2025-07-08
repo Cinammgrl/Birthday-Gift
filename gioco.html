@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Gioco di Cupido 💘</title>
-  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -16,12 +16,10 @@
       text-align: center;
       overflow-x: hidden;
     }
-
     h1 {
       margin-top: 30px;
       font-size: 50px;
     }
-
     #start-btn {
       font-size: 24px;
       padding: 10px 30px;
@@ -31,7 +29,6 @@
       cursor: pointer;
       margin-bottom: 20px;
     }
-
     #game-area {
       display: none;
       position: relative;
@@ -39,26 +36,23 @@
       height: 500px;
       overflow: hidden;
     }
-
     .cuoricino {
       position: absolute;
       width: 50px;
       height: 50px;
       cursor: pointer;
-      pointer-events: auto;
     }
-
     #message {
       font-size: 26px;
       margin-top: 20px;
       padding: 10px;
+      min-height: 70px;
     }
-
     #cupido {
       margin-top: 20px;
-      width: 150px;
+      width: 180px;
+      height: auto;
     }
-
     button.riprova {
       margin-top: 15px;
       font-size: 20px;
@@ -72,18 +66,13 @@
   </style>
 </head>
 <body>
-
   <h1>🎯 Gioco di Cupido 💘</h1>
-  <img id="cupido" src="https://media.giphy.com/media/7XjzA0zvvKQ9l8aJYz/giphy.gif" alt="Cupido">
-  <br>
+  <!-- Cupido statico, immagine affidabile da Giphy -->
+  <img id="cupido" src="https://media.giphy.com/media/7XjzA0zvvKQ9l8aJYz/giphy.gif" alt="Cupido" />
+  <br />
   <button id="start-btn">Avvia Gioco 💞</button>
-
   <div id="game-area"></div>
   <div id="message"></div>
-
-  <audio id="music" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-  </audio>
 
   <script>
     const frasi = [
@@ -93,49 +82,4 @@
       `"Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà" – Dostoevskij`,
       `"Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica" – Murakami`,
       `"Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte" – Shakespeare`,
-      `"Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi." – D’Annunzio`
-    ];
-
-    const gameArea = document.getElementById("game-area");
-    const message = document.getElementById("message");
-    const startBtn = document.getElementById("start-btn");
-    const music = document.getElementById("music");
-
-    let index = 0;
-
-    function startGame() {
-      message.textContent = "";
-      gameArea.innerHTML = "";
-      index = 0;
-      gameArea.style.display = "block";
-      music.play();
-
-      for (let i = 0; i < frasi.length; i++) {
-        const heart = document.createElement('img');
-        heart.src = 'https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif'; // GIF cuoricino animato con sfondo trasparente
-        heart.className = 'cuoricino';
-        heart.style.top = Math.random() * 400 + "px";
-        heart.style.left = Math.random() * (window.innerWidth - 60) + "px";
-
-        heart.addEventListener("click", () => {
-          if (index < frasi.length) {
-            message.textContent = frasi[index];
-            heart.remove();
-            index++;
-          }
-
-          if (index === frasi.length) {
-            message.innerHTML = `💖 Hai trovato tutte le frasi d'amore!<br>L'amore vince sempre.<br><br><button class="riprova" onclick='startGame()'>🔄 Riprova</button>`;
-            gameArea.style.display = "none";
-          }
-        });
-
-        gameArea.appendChild(heart);
-      }
-    }
-
-    startBtn.addEventListener("click", startGame);
-  </script>
-
-</body>
-</html>
+      `"Perché io non so dire quel che i suoi occhi mi fanno
