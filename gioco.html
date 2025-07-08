@@ -67,7 +67,6 @@
 </head>
 <body>
   <h1>🎯 Gioco di Cupido 💘</h1>
-  <!-- Cupido statico, immagine affidabile da Giphy -->
   <img id="cupido" src="https://media.giphy.com/media/7XjzA0zvvKQ9l8aJYz/giphy.gif" alt="Cupido" />
   <br />
   <button id="start-btn">Avvia Gioco 💞</button>
@@ -82,4 +81,48 @@
       `"Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà" – Dostoevskij`,
       `"Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica" – Murakami`,
       `"Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte" – Shakespeare`,
-      `"Perché io non so dire quel che i suoi occhi mi fanno
+      `"Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi." – D’Annunzio`
+    ];
+
+    const gameArea = document.getElementById("game-area");
+    const message = document.getElementById("message");
+    const startBtn = document.getElementById("start-btn");
+
+    let index = 0;
+
+    function startGame() {
+      message.textContent = "";
+      gameArea.innerHTML = "";
+      index = 0;
+      gameArea.style.display = "block";
+
+      for (let i = 0; i < frasi.length; i++) {
+        const heart = document.createElement("img");
+        heart.src = "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif";
+        heart.className = "cuoricino";
+        heart.style.top = Math.random() * 450 + "px";
+        heart.style.left = Math.random() * (window.innerWidth - 60) + "px";
+
+        heart.addEventListener("click", () => {
+          if (index < frasi.length) {
+            message.textContent = frasi[index];
+            heart.remove();
+            index++;
+          }
+
+          if (index === frasi.length) {
+            message.innerHTML =
+              `💖 Hai trovato tutte le frasi d'amore!<br>L'amore vince sempre.<br><br>` +
+              `<button class="riprova" onclick="startGame()">🔄 Riprova</button>`;
+            gameArea.style.display = "none";
+          }
+        });
+
+        gameArea.appendChild(heart);
+      }
+    }
+
+    startBtn.addEventListener("click", startGame);
+  </script>
+</body>
+</html>
