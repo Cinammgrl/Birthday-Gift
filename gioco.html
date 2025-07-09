@@ -81,6 +81,7 @@
   <img id="cupido" src="cupido.gif" alt="Cupido" />
   <br />
   <button id="start-btn">Avvia Gioco 💞</button>
+  <h3 id="livello-indicatore">Livello: 1</h3>
   
   <div id="game-area"></div>
   <img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
@@ -117,7 +118,7 @@
   const popSound = document.getElementById("popSound");
 
   let index = 0;
-
+  let level = 1;
   function showPhrase(x, y, text) {
     const phraseEl = document.createElement("div");
     phraseEl.className = "phrase-popup";
@@ -137,47 +138,62 @@
   }
 
   function startGame() {
-    gameArea.innerHTML = "";
-    index = 0;
-    gameArea.style.display = "block";
-    victoryGif.style.display = "none";
-    document.getElementById("victory-message").style.display = "none"; // nasconde il messaggio se stai rigiocando
-    bgMusic.play();
+  gameArea.innerHTML = "";
+  index = 0;
+  gameArea.style.display = "block";
+  victoryGif.style.display = "none";
+  document.getElementById("victory-message").style.display = "none";
+  bgMusic.play();
 
-    for (let i = 0; i < frasi.length; i++) {
-      const heart = document.createElement('img');
-      heart.src = 'rana2.gif';
-      heart.className = 'heart';
-      heart.style.top = Math.random() * 400 + "px";
-      heart.style.left = Math.random() * (window.innerWidth - 130) + "px";
+  // Aggiorna testo livello
+  document.getElementById("livello-indicatore").textContent = "Livello: " + level;
 
-      heart.addEventListener("click", (e) => {
-        if (index < frasi.length) {
-          showPhrase(e.clientX, e.clientY, frasi[index]);
-          index++;
-          heart.remove();
-          popSound.currentTime = 0;
-          popSound.play();
+  // Rende il gioco più difficile a ogni livello
+  const size = level === 1 ? 130 : level === 2 ? 100 : 70;
 
-          if (index === frasi.length) {
-            setTimeout(() => {
+  for (let i = 0; i < frasi.length; i++) {
+    const heart = document.createElement('img');
+    heart.src = 'rana2.gif';
+    heart.className = 'heart';
+    heart.style.width = size + "px";
+    heart.style.height = size + "px";
+    heart.style.top = Math.random() * 400 + "px";
+    heart.style.left = Math.random() * (window.innerWidth - size) + "px";
+
+    heart.addEventListener("click", (e) => {
+      if (index < frasi.length) {
+        showPhrase(e.clientX, e.clientY, frasi[index]);
+        index++;
+        heart.remove();
+        popSound.currentTime = 0;
+        popSound.play();
+
+        if (index === frasi.length) {
+          setTimeout(() => {
+            // Avanza al livello successivo
+            level++;
+
+            if (level > 3) {
               showVictoryMessage();
-
               bgMusic.pause();
               bgMusic.currentTime = 0;
-
               victorySound.play();
               victoryGif.style.display = "block";
-
               gameArea.style.display = "none";
-            }, 2000);
-          }
+              document.getElementById("livello-indicatore").textContent = "Hai completato tutti i livelli!";
+            } else {
+              document.getElementById("livello-indicatore").textContent = "Livello " + (level - 1) + " completato!";
+              gameArea.style.display = "none";
+              setTimeout(startGame, 2000);
+            }
+          }, 2000);
         }
-      });
+      }
+    });
 
-      gameArea.appendChild(heart);
-    }
+    gameArea.appendChild(heart);
   }
+}
 
   startBtn.addEventListener("click", startGame);
 </script>
