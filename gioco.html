@@ -98,7 +98,24 @@
   <audio id="victory-sound" preload="auto">
     <source src="victory-sound.mp3" type="audio/mp3" />
   </audio>
+<!-- LIVELLO 2: Cruciverba -->
+<div id="cruciverba-area" style="display: none;">
+  <h2>🧩 Trova la parola dell’amore</h2>
+  <p>Completa la parola misteriosa: <strong>_ M _ R _</strong></p>
+  <input type="text" id="cruciverba-input" placeholder="Scrivi qui..." />
+  <button onclick="checkCruciverba()">Invia</button>
+  <p id="cruciverba-feedback" style="font-size: 20px; margin-top: 10px;"></p>
+</div>
 
+<!-- LIVELLO 3: Quiz -->
+<div id="quiz-area" style="display: none;">
+  <h2>💘 Quiz sull’Amore</h2>
+  <p id="quiz-question">Chi è l'autore della frase: "Sei insieme la quiete e la confusione del mio cuore"?</p>
+  <button onclick="checkQuizAnswer('Kafka')">Franz Kafka</button>
+  <button onclick="checkQuizAnswer('Pasolini')">Pier Paolo Pasolini</button>
+  <button onclick="checkQuizAnswer('Leopardi')">Giacomo Leopardi</button>
+  <p id="quiz-feedback" style="font-size: 20px; margin-top: 10px;"></p>
+</div>
 <script>
   const frasi = [
     "Sei insieme la quiete e la confusione del mio cuore – Franz Kafka",
@@ -137,65 +154,96 @@
     msg.style.display = "block";
   }
 
-  function startGame() {
+ function startGame() {
   gameArea.innerHTML = "";
   index = 0;
-  gameArea.style.display = "block";
   victoryGif.style.display = "none";
   document.getElementById("victory-message").style.display = "none";
-  bgMusic.play();
 
-  // Aggiorna testo livello
+  document.getElementById("cruciverba-area").style.display = "none";
+  document.getElementById("quiz-area").style.display = "none";
+
+  bgMusic.play();
   document.getElementById("livello-indicatore").textContent = "Livello: " + level;
 
-  // Rende il gioco più difficile a ogni livello
-  const size = level === 1 ? 130 : level === 2 ? 100 : 70;
+  if (level === 1) {
+    gameArea.style.display = "block";
+    const size = 130;
 
-  for (let i = 0; i < frasi.length; i++) {
-    const heart = document.createElement('img');
-    heart.src = 'rana2.gif';
-    heart.className = 'heart';
-    heart.style.width = size + "px";
-    heart.style.height = size + "px";
-    heart.style.top = Math.random() * 400 + "px";
-    heart.style.left = Math.random() * (window.innerWidth - size) + "px";
+    for (let i = 0; i < frasi.length; i++) {
+      const heart = document.createElement('img');
+      heart.src = 'rana2.gif';
+      heart.className = 'heart';
+      heart.style.width = size + "px";
+      heart.style.height = size + "px";
+      heart.style.top = Math.random() * 400 + "px";
+      heart.style.left = Math.random() * (window.innerWidth - size) + "px";
 
-    heart.addEventListener("click", (e) => {
-      if (index < frasi.length) {
-        showPhrase(e.clientX, e.clientY, frasi[index]);
-        index++;
-        heart.remove();
-        popSound.currentTime = 0;
-        popSound.play();
+      heart.addEventListener("click", (e) => {
+        if (index < frasi.length) {
+          showPhrase(e.clientX, e.clientY, frasi[index]);
+          index++;
+          heart.remove();
+          popSound.currentTime = 0;
+          popSound.play();
 
-        if (index === frasi.length) {
-          setTimeout(() => {
-            // Avanza al livello successivo
-            level++;
-
-            if (level > 3) {
-              showVictoryMessage();
-              bgMusic.pause();
-              bgMusic.currentTime = 0;
-              victorySound.play();
-              victoryGif.style.display = "block";
+          if (index === frasi.length) {
+            setTimeout(() => {
+              level++;
               gameArea.style.display = "none";
-              document.getElementById("livello-indicatore").textContent = "Hai completato tutti i livelli!";
-            } else {
-              document.getElementById("livello-indicatore").textContent = "Livello " + (level - 1) + " completato!";
-              gameArea.style.display = "none";
+              document.getElementById("livello-indicatore").textContent = "Livello 1 completato!";
               setTimeout(startGame, 2000);
-            }
-          }, 2000);
+            }, 2000);
+          }
         }
-      }
-    });
+      });
 
-    gameArea.appendChild(heart);
+      gameArea.appendChild(heart);
+    }
+
+  } else if (level === 2) {
+    document.getElementById("cruciverba-area").style.display = "block";
+
+  } else if (level === 3) {
+    document.getElementById("quiz-area").style.display = "block";
+
   }
 }
 
   startBtn.addEventListener("click", startGame);
+  function checkCruciverba() {
+  const input = document.getElementById("cruciverba-input").value.trim().toUpperCase();
+  const feedback = document.getElementById("cruciverba-feedback");
+
+  if (input === "AMORE") {
+    feedback.textContent = "💖 Bravo! Passi al livello successivo!";
+    setTimeout(() => {
+      level++;
+      document.getElementById("cruciverba-area").style.display = "none";
+      startGame(); // parte il quiz
+    }, 2000);
+  } else {
+    feedback.textContent = "❌ Riprova... pensa con il cuore!";
+  }
+}
+
+function checkQuizAnswer(answer) {
+  const feedback = document.getElementById("quiz-feedback");
+  if (answer === "Kafka") {
+    feedback.textContent = "✅ Esatto! Sei un vero romantico!";
+    setTimeout(() => {
+      showVictoryMessage();
+      document.getElementById("quiz-area").style.display = "none";
+      bgMusic.pause();
+      bgMusic.currentTime = 0;
+      victorySound.play();
+      victoryGif.style.display = "block";
+      document.getElementById("livello-indicatore").textContent = "Hai completato tutti i livelli!";
+    }, 2000);
+  } else {
+    feedback.textContent = "❌ No... ritenta!";
+  }
+}
 </script>
 </body>
 </html>
