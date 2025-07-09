@@ -89,6 +89,13 @@
   <audio id="bg-music" loop>
     <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
   </audio>
+  
+  <img id="victory-gif" src="victory.gif" alt="Victory GIF" style="display:none; width: 250px; margin: 20px auto;" />
+ 
+  <audio id="victory-sound" preload="auto">
+  <source src="victory-sound.mp3" type="audio/mp3">
+</audio>
+
 
   <script>
     const frasi = [
@@ -138,17 +145,26 @@
             index++;
             heart.remove();
 
-            if (index === frasi.length) {
-              setTimeout(() => {
-                showPhrase(window.innerWidth / 2, 200, "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.");
-              }, 500);
-              gameArea.style.display = "none";
-            }
-          }
-        });
+         if (index === frasi.length) {
+  setTimeout(() => {
+    showPhrase(window.innerWidth / 2, 200, "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.");
+    
+    // Ferma la musica di sottofondo
+    bgMusic.pause();
+    bgMusic.currentTime = 0;
 
-        gameArea.appendChild(heart);
-      }
+    // Suona la musica della vittoria
+    const victorySound = document.getElementById("victory-sound");
+    victorySound.play();
+
+    // Mostra la GIF
+    const victoryGif = document.getElementById("victory-gif");
+    victoryGif.style.display = "block";
+
+  }, 500);
+
+  gameArea.style.display = "none";
+}
 
       bgMusic.play();
     }
