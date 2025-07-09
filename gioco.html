@@ -154,22 +154,29 @@
             index++;
             heart.remove();
 
-            if (index === frasi.length) {
-              setTimeout(() => {
-                showPhrase(window.innerWidth / 2, 200, "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.");
+        if (index === frasi.length) {
+  setTimeout(() => {
+    showVictoryMessage();
 
-                bgMusic.pause();
-                bgMusic.currentTime = 0;
+    bgMusic.pause();
+    bgMusic.currentTime = 0;
 
-                victorySound.play();
-                victoryGif.style.display = "block";
-              }, 500);
+    victorySound.play();
+    victoryGif.style.display = "block";
+  }, 2000); // aspetto 2 secondi per far sparire il popup della frase
 
-              gameArea.style.display = "none";
-            }
-          }
-        });
-
+  gameArea.style.display = "none";
+}
+   function showVictoryMessage() {
+  const victoryMsg = document.createElement("div");
+  victoryMsg.textContent = "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.";
+  victoryMsg.style.fontSize = "40px";
+  victoryMsg.style.marginTop = "40px";
+  victoryMsg.style.color = "#b30059";
+  victoryMsg.style.textAlign = "center";
+  document.body.appendChild(victoryMsg);
+}
+            
         gameArea.appendChild(heart);
       }
     }
