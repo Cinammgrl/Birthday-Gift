@@ -73,6 +73,21 @@
     audio {
       display: none;
     }
+    <style>
+
+  #cruciverba-area h2,
+#quiz-area h2 {
+  font-size: 40px;
+}
+
+#quiz-question {
+  font-size: 28px;
+}
+
+#cruciverba-area p {
+  font-size: 28px;
+}
+</style>
   </style>
 </head>
 <body>
@@ -104,7 +119,7 @@
   <p>Completa la parola misteriosa: <strong>_ M _ R _</strong></p>
   <input type="text" id="cruciverba-input" placeholder="Scrivi qui..." />
   <button onclick="checkCruciverba()">Invia</button>
-  <p id="cruciverba-feedback" style="font-size: 40px; margin-top: 10px;"></p>
+  <p id="cruciverba-feedback" style="font-size: 20px; margin-top: 10px;"></p>
 </div>
 
 <!-- LIVELLO 3: Quiz -->
@@ -114,7 +129,7 @@
   <button onclick="checkQuizAnswer('Kafka')">Franz Kafka</button>
   <button onclick="checkQuizAnswer('Pasolini')">Pier Paolo Pasolini</button>
   <button onclick="checkQuizAnswer('Leopardi')">Giacomo Leopardi</button>
-  <p id="quiz-feedback" style="font-size: 40px; margin-top: 10px;"></p>
+  <p id="quiz-feedback" style="font-size: 20px; margin-top: 10px;"></p>
 </div>
 <script>
   const frasi = [
