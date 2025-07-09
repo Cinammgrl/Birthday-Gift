@@ -54,6 +54,8 @@
       pointer-events: none;
       animation: fadeInOut 3s ease-in-out forwards;
       z-index: 1000;
+      transform: translateX(-50%);
+      text-align: center;
     }
     @keyframes fadeInOut {
       0% { opacity: 0; transform: translateY(-10px); }
@@ -73,6 +75,13 @@
     audio {
       display: none;
     }
+    .decorazione {
+      position: absolute;
+      width: 150px;
+      height: auto;
+      z-index: 10; /* più alto delle rane */
+      pointer-events: none; /* non blocca i click */
+    }
   </style>
 </head>
 <body>
@@ -83,18 +92,17 @@
   <button id="start-btn">Avvia Gioco 💞</button>
   
   <div id="game-area"></div>
-<img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
-<audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
+  <img src="nuvola.png" class="decorazione" style="top: 100px; left: 30%;" />
+  <img src="margherita.png" class="decorazione" style="top: 200px; left: 60%;" />
 
-  <div id="game-area"></div>
-
-  <img id="victory-gif" src="victory.gif" alt="Victory GIF" />
+  <img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
+  <audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
   
   <div id="victory-message" style="display: none; font-size: 40px; margin-top: 40px; color: #b30059; text-align: center;">
-  💖Bravo, hai vinto un bacio.
-</div>
+    💖Bravo, hai vinto un bacio.
+  </div>
 
-   <audio id="bg-music" loop>
+  <audio id="bg-music" loop>
     <source src="loving-sound.mp3" type="audio/mp3" />
   </audio>
 
@@ -128,12 +136,12 @@
     phraseEl.className = "phrase-popup";
     phraseEl.textContent = text;
     phraseEl.style.top = (y - 40) + "px";
-    phraseEl.style.left = (x - 150 / 2) + "px";
+    phraseEl.style.left = x + "px";
     document.body.appendChild(phraseEl);
 
     setTimeout(() => {
       phraseEl.remove();
-    }, 8000);
+    }, 4000);
   }
 
   function showVictoryMessage() {
@@ -146,15 +154,16 @@
     index = 0;
     gameArea.style.display = "block";
     victoryGif.style.display = "none";
-    document.getElementById("victory-message").style.display = "none"; // nasconde il messaggio se stai rigiocando
+    document.getElementById("victory-message").style.display = "none";
     bgMusic.play();
+    startBtn.disabled = true;
 
     for (let i = 0; i < frasi.length; i++) {
       const heart = document.createElement('img');
-      heart.src = 'rana2.gif';
+      heart.src = 'heart.gif'; // metti un cuore, non rana
       heart.className = 'heart';
-      heart.style.top = Math.random() * 400 + "px";
-      heart.style.left = Math.random() * (window.innerWidth - 100) + "px";
+      heart.style.top = Math.random() * (gameArea.clientHeight - 130) + "px";
+      heart.style.left = Math.random() * (gameArea.clientWidth - 130) + "px";
 
       heart.addEventListener("click", (e) => {
         if (index < frasi.length) {
@@ -162,8 +171,7 @@
           index++;
           heart.remove();
           popSound.currentTime = 0;
-popSound.play();
-
+          popSound.play();
 
           if (index === frasi.length) {
             setTimeout(() => {
@@ -176,6 +184,7 @@ popSound.play();
               victoryGif.style.display = "block";
 
               gameArea.style.display = "none";
+              startBtn.disabled = false;
             }, 2000);
           }
         }
@@ -187,3 +196,5 @@ popSound.play();
 
   startBtn.addEventListener("click", startGame);
 </script>
+</body>
+</html>
