@@ -113,76 +113,77 @@
       `"Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi." – D’Annunzio`
     ];
 
-    const gameArea = document.getElementById("game-area");
-    const startBtn = document.getElementById("start-btn");
-    const bgMusic = document.getElementById("bg-music");
-    const victorySound = document.getElementById("victory-sound");
-    const victoryGif = document.getElementById("victory-gif");
+     const gameArea = document.getElementById("game-area");
+  const startBtn = document.getElementById("start-btn");
+  const bgMusic = document.getElementById("bg-music");
+  const victorySound = document.getElementById("victory-sound");
+  const victoryGif = document.getElementById("victory-gif");
 
-    let index = 0;
+  let index = 0;
 
-    function showPhrase(x, y, text) {
-      const phraseEl = document.createElement("div");
-      phraseEl.className = "phrase-popup";
-      phraseEl.textContent = text;
-      phraseEl.style.top = (y - 40) + "px";
-      phraseEl.style.left = (x - 150 / 2) + "px";
-      document.body.appendChild(phraseEl);
+  function showPhrase(x, y, text) {
+    const phraseEl = document.createElement("div");
+    phraseEl.className = "phrase-popup";
+    phraseEl.textContent = text;
+    phraseEl.style.top = (y - 40) + "px";
+    phraseEl.style.left = (x - 150 / 2) + "px";
+    document.body.appendChild(phraseEl);
 
-      setTimeout(() => {
-        phraseEl.remove();
-      }, 8000);
+    setTimeout(() => {
+      phraseEl.remove();
+    }, 8000);
+  }
+
+  function showVictoryMessage() {
+    const victoryMsg = document.createElement("div");
+    victoryMsg.textContent = "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.";
+    victoryMsg.style.fontSize = "40px";
+    victoryMsg.style.marginTop = "40px";
+    victoryMsg.style.color = "#b30059";
+    victoryMsg.style.textAlign = "center";
+    document.body.appendChild(victoryMsg);
+  }
+
+  function startGame() {
+    gameArea.innerHTML = "";
+    index = 0;
+    gameArea.style.display = "block";
+    victoryGif.style.display = "none";
+    bgMusic.play();
+
+    for (let i = 0; i < frasi.length; i++) {
+      const heart = document.createElement('img');
+      heart.src = 'rana2.gif';
+      heart.className = 'heart';
+      heart.style.top = Math.random() * 400 + "px";
+      heart.style.left = Math.random() * (window.innerWidth - 100) + "px";
+
+      heart.addEventListener("click", (e) => {
+        if (index < frasi.length) {
+          showPhrase(e.clientX, e.clientY, frasi[index]);
+          index++;
+          heart.remove();
+
+          if (index === frasi.length) {
+            setTimeout(() => {
+              showVictoryMessage();
+
+              bgMusic.pause();
+              bgMusic.currentTime = 0;
+
+              victorySound.play();
+              victoryGif.style.display = "block";
+            }, 2000);
+
+            gameArea.style.display = "none";
+          }
+        }
+      });
+
+      gameArea.appendChild(heart);
     }
+  }
 
-    function startGame() {
-      gameArea.innerHTML = "";
-      index = 0;
-      gameArea.style.display = "block";
-      victoryGif.style.display = "none";
-      bgMusic.play();
-
-      for (let i = 0; i < frasi.length; i++) {
-        const heart = document.createElement('img');
-        heart.src = 'rana2.gif';
-        heart.className = 'heart';
-        heart.style.top = Math.random() * 400 + "px";
-        heart.style.left = Math.random() * (window.innerWidth - 100) + "px";
-
-        heart.addEventListener("click", (e) => {
-          if (index < frasi.length) {
-            showPhrase(e.clientX, e.clientY, frasi[index]);
-            index++;
-            heart.remove();
-
-        if (index === frasi.length) {
-  setTimeout(() => {
-    showVictoryMessage();
-
-    bgMusic.pause();
-    bgMusic.currentTime = 0;
-
-    victorySound.play();
-    victoryGif.style.display = "block";
-  }, 2000); // aspetto 2 secondi per far sparire il popup della frase
-
-  gameArea.style.display = "none";
-}
-   function showVictoryMessage() {
-  const victoryMsg = document.createElement("div");
-  victoryMsg.textContent = "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.";
-  victoryMsg.style.fontSize = "40px";
-  victoryMsg.style.marginTop = "40px";
-  victoryMsg.style.color = "#b30059";
-  victoryMsg.style.textAlign = "center";
-  document.body.appendChild(victoryMsg);
-}
-            
-        gameArea.appendChild(heart);
-      }
-    }
-
-    startBtn.addEventListener("click", startGame);
-  </script>
-
-</body>
+  startBtn.addEventListener("click", startGame);
+</script>
 </html>
