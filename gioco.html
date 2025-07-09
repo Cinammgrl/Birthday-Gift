@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Gioco di Cupido 💘</title>
-  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
-  padding: 0;
-  font-family: 'Sacramento', cursive;
-  background-color: #ffe6f0;
-  background-image: url('heart 3.jpg');
-  background-repeat: repeat;
-  background-size: cover;
-  color: #b30059;
-  text-align: center;
-  overflow-x: hidden;
-}
+      padding: 0;
+      font-family: 'Sacramento', cursive;
+      background-color: #ffe6f0;
+      background-image: url('heart 3.jpg');
+      background-repeat: repeat;
+      background-size: cover;
+      color: #b30059;
+      text-align: center;
+      overflow-x: hidden;
+    }
     h1 {
       margin-top: 30px;
       font-size: 50px;
     }
-
     #start-btn {
       font-size: 24px;
       padding: 10px 30px;
@@ -31,21 +30,18 @@
       cursor: pointer;
       margin-bottom: 20px;
     }
-
     #game-area {
       display: none;
       position: relative;
       width: 100%;
       height: 500px;
     }
-
     .heart {
       position: absolute;
       width: 130px;
       height: 130px;
       cursor: pointer;
     }
-
     .phrase-popup {
       position: absolute;
       background-color: rgba(255, 255, 255, 0.85);
@@ -59,25 +55,21 @@
       animation: fadeInOut 3s ease-in-out forwards;
       z-index: 1000;
     }
-
     @keyframes fadeInOut {
       0% { opacity: 0; transform: translateY(-10px); }
       10% { opacity: 1; }
       90% { opacity: 1; }
       100% { opacity: 0; transform: translateY(-20px); }
     }
-
     #cupido {
       margin-top: 20px;
       width: 150px;
     }
-
     #victory-gif {
       display: none;
       width: 250px;
       margin: 20px auto;
     }
-
     audio {
       display: none;
     }
@@ -86,20 +78,20 @@
 <body>
 
   <h1>🎯 Gioco di Cupido 💘</h1>
-  <img id="cupido" src="cupido.gif" alt="Cupido">
-  <br>
+  <img id="cupido" src="cupido.gif" alt="Cupido" />
+  <br />
   <button id="start-btn">Avvia Gioco 💞</button>
 
   <div id="game-area"></div>
 
-  <img id="victory-gif" src="victory.gif" alt="Victory GIF">
+  <img id="victory-gif" src="victory.gif" alt="Victory GIF" />
 
   <audio id="bg-music" loop>
-  <source src="loving-sound.mp3" type="audio/mp3">
-</audio>
+    <source src="loving-sound.mp3" type="audio/mp3" />
+  </audio>
 
   <audio id="victory-sound" preload="auto">
-    <source src="victory-sound.mp3" type="audio/mp3">
+    <source src="victory-sound.mp3" type="audio/mp3" />
   </audio>
 
   <script>
@@ -113,77 +105,79 @@
       `"Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi." – D’Annunzio`
     ];
 
-     const gameArea = document.getElementById("game-area");
-  const startBtn = document.getElementById("start-btn");
-  const bgMusic = document.getElementById("bg-music");
-  const victorySound = document.getElementById("victory-sound");
-  const victoryGif = document.getElementById("victory-gif");
+    const gameArea = document.getElementById("game-area");
+    const startBtn = document.getElementById("start-btn");
+    const bgMusic = document.getElementById("bg-music");
+    const victorySound = document.getElementById("victory-sound");
+    const victoryGif = document.getElementById("victory-gif");
 
-  let index = 0;
+    let index = 0;
 
-  function showPhrase(x, y, text) {
-    const phraseEl = document.createElement("div");
-    phraseEl.className = "phrase-popup";
-    phraseEl.textContent = text;
-    phraseEl.style.top = (y - 40) + "px";
-    phraseEl.style.left = (x - 150 / 2) + "px";
-    document.body.appendChild(phraseEl);
+    function showPhrase(x, y, text) {
+      const phraseEl = document.createElement("div");
+      phraseEl.className = "phrase-popup";
+      phraseEl.textContent = text;
+      phraseEl.style.top = (y - 40) + "px";
+      phraseEl.style.left = (x - 150 / 2) + "px";
+      document.body.appendChild(phraseEl);
 
-    setTimeout(() => {
-      phraseEl.remove();
-    }, 8000);
-  }
-
-  function showVictoryMessage() {
-    const victoryMsg = document.createElement("div");
-    victoryMsg.textContent = "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.";
-    victoryMsg.style.fontSize = "40px";
-    victoryMsg.style.marginTop = "40px";
-    victoryMsg.style.color = "#b30059";
-    victoryMsg.style.textAlign = "center";
-    document.body.appendChild(victoryMsg);
-  }
-
-  function startGame() {
-    gameArea.innerHTML = "";
-    index = 0;
-    gameArea.style.display = "block";
-    victoryGif.style.display = "none";
-    bgMusic.play();
-
-    for (let i = 0; i < frasi.length; i++) {
-      const heart = document.createElement('img');
-      heart.src = 'rana2.gif';
-      heart.className = 'heart';
-      heart.style.top = Math.random() * 400 + "px";
-      heart.style.left = Math.random() * (window.innerWidth - 100) + "px";
-
-      heart.addEventListener("click", (e) => {
-        if (index < frasi.length) {
-          showPhrase(e.clientX, e.clientY, frasi[index]);
-          index++;
-          heart.remove();
-
-          if (index === frasi.length) {
-            setTimeout(() => {
-              showVictoryMessage();
-
-              bgMusic.pause();
-              bgMusic.currentTime = 0;
-
-              victorySound.play();
-              victoryGif.style.display = "block";
-            }, 2000);
-
-            gameArea.style.display = "none";
-          }
-        }
-      });
-
-      gameArea.appendChild(heart);
+      setTimeout(() => {
+        phraseEl.remove();
+      }, 8000);
     }
-  }
 
-  startBtn.addEventListener("click", startGame);
-</script>
+    function showVictoryMessage() {
+      const victoryMsg = document.createElement("div");
+      victoryMsg.textContent = "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.";
+      victoryMsg.style.fontSize = "40px";
+      victoryMsg.style.marginTop = "40px";
+      victoryMsg.style.color = "#b30059";
+      victoryMsg.style.textAlign = "center";
+      document.body.appendChild(victoryMsg);
+    }
+
+    function startGame() {
+      gameArea.innerHTML = "";
+      index = 0;
+      gameArea.style.display = "block";
+      victoryGif.style.display = "none";
+      bgMusic.play();
+
+      for (let i = 0; i < frasi.length; i++) {
+        const heart = document.createElement('img');
+        heart.src = 'rana2.gif';
+        heart.className = 'heart';
+        heart.style.top = Math.random() * 400 + "px";
+        heart.style.left = Math.random() * (window.innerWidth - 100) + "px";
+
+        heart.addEventListener("click", (e) => {
+          if (index < frasi.length) {
+            showPhrase(e.clientX, e.clientY, frasi[index]);
+            index++;
+            heart.remove();
+
+            if (index === frasi.length) {
+              setTimeout(() => {
+                showVictoryMessage();
+
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+
+                victorySound.play();
+                victoryGif.style.display = "block";
+
+                gameArea.style.display = "none"; // qui dentro, dopo 2 secondi
+              }, 2000);
+            }
+          }
+        });
+
+        gameArea.appendChild(heart);
+      }
+    }
+
+    startBtn.addEventListener("click", startGame);
+  </script>
+
+</body>
 </html>
