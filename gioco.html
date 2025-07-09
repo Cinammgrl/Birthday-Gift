@@ -83,14 +83,14 @@
   <button id="start-btn">Avvia Gioco 💞</button>
   
   <div id="game-area"></div>
-<img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
-<audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
+  <img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
+  <audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
   
   <div id="victory-message" style="display: none; font-size: 40px; margin-top: 40px; color: #b30059; text-align: center;">
-  💖Bravo, hai vinto un bacio.
-</div>
+    💖Bravo, hai vinto un bacio.
+  </div>
 
-   <audio id="bg-music" loop>
+  <audio id="bg-music" loop>
     <source src="loving-sound.mp3" type="audio/mp3" />
   </audio>
 
@@ -98,15 +98,15 @@
     <source src="victory-sound.mp3" type="audio/mp3" />
   </audio>
 
- <script>
+<script>
   const frasi = [
-    "Sei insieme la quiete e la confusione del mio cuore" – Franz Kafka,
-    "Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento" – Eugenio Montale,
-    "Sei un cielo stellato" – Cesare Pavese,
-    "Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà" – Dostoevskij,
-    "Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica" – Murakami,
-    "Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte" – Shakespeare,
-    "Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi." – D’Annunzio
+    "Sei insieme la quiete e la confusione del mio cuore – Franz Kafka",
+    "Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento – Eugenio Montale",
+    "Sei un cielo stellato – Cesare Pavese",
+    "Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà – Dostoevskij",
+    "Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica – Murakami",
+    "Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte – Shakespeare",
+    "Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi. – D’Annunzio"
   ];
 
   const gameArea = document.getElementById("game-area");
@@ -115,7 +115,6 @@
   const victorySound = document.getElementById("victory-sound");
   const victoryGif = document.getElementById("victory-gif");
   const popSound = document.getElementById("popSound");
-
 
   let index = 0;
 
@@ -150,7 +149,7 @@
       heart.src = 'rana2.gif';
       heart.className = 'heart';
       heart.style.top = Math.random() * 400 + "px";
-      heart.style.left = Math.random() * (window.innerWidth - 100) + "px";
+      heart.style.left = Math.random() * (window.innerWidth - 130) + "px";
 
       heart.addEventListener("click", (e) => {
         if (index < frasi.length) {
@@ -158,8 +157,7 @@
           index++;
           heart.remove();
           popSound.currentTime = 0;
-popSound.play();
-
+          popSound.play();
 
           if (index === frasi.length) {
             setTimeout(() => {
@@ -183,3 +181,5 @@ popSound.play();
 
   startBtn.addEventListener("click", startGame);
 </script>
+</body>
+</html>
