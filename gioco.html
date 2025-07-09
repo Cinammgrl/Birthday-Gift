@@ -72,12 +72,6 @@
       width: 150px;
     }
     
-    #victory-gif {
-      display: none;
-      width: 250px;
-      margin: 20px auto 0 auto;
-    }
-
     audio {
       display: none;
     }
@@ -91,12 +85,7 @@
   <button id="start-btn">Avvia Gioco 💞</button>
 
   <div id="game-area"></div>
-  <audio id="click-sound" src="https://www.soundjay.com/button/sounds/button-09.mp3" preload="auto"></audio>
-  <audio id="victory-sound" src="https://www.soundjay.com/human/sounds/applause-8.mp3" preload="auto"></audio>
-
-  <!-- Gif esultanza (chiuso correttamente) -->
-  <img id="victory-gif" src="https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif" alt="Esultanza" />
-
+  
   <audio id="bg-music" loop>
     <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
   </audio>
@@ -112,12 +101,9 @@
       `"Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi." – D’Annunzio`
     ];
 
-    const gameArea = document.getElementById("game-area");
+     const gameArea = document.getElementById("game-area");
     const startBtn = document.getElementById("start-btn");
     const bgMusic = document.getElementById("bg-music");
-    const clickSound = document.getElementById("click-sound");
-    const victorySound = document.getElementById("victory-sound");
-    const victoryGif = document.getElementById("victory-gif");
 
     let index = 0;
 
@@ -137,11 +123,7 @@
     function startGame() {
       gameArea.innerHTML = "";
       index = 0;
-      victoryGif.style.display = "none";
       gameArea.style.display = "block";
-
-      // Provo a far partire la musica (potrebbe essere bloccata se senza interazione)
-      bgMusic.play().catch(() => {});
 
       for (let i = 0; i < frasi.length; i++) {
         const heart = document.createElement('img');
@@ -152,26 +134,23 @@
 
         heart.addEventListener("click", (e) => {
           if (index < frasi.length) {
-            clickSound.currentTime = 0;
-            clickSound.play();
-
             showPhrase(e.clientX, e.clientY, frasi[index]);
             index++;
             heart.remove();
 
             if (index === frasi.length) {
-              victorySound.play();
               setTimeout(() => {
                 showPhrase(window.innerWidth / 2, 200, "💖 Hai trovato tutte le frasi d'amore! L'amore vince sempre.");
-                gameArea.style.display = "none";
-                victoryGif.style.display = "block";
               }, 500);
+              gameArea.style.display = "none";
             }
           }
         });
 
         gameArea.appendChild(heart);
       }
+
+      bgMusic.play();
     }
 
     startBtn.addEventListener("click", startGame);
