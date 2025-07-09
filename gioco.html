@@ -54,8 +54,6 @@
       pointer-events: none;
       animation: fadeInOut 3s ease-in-out forwards;
       z-index: 1000;
-      transform: translateX(-50%);
-      text-align: center;
     }
     @keyframes fadeInOut {
       0% { opacity: 0; transform: translateY(-10px); }
@@ -75,13 +73,6 @@
     audio {
       display: none;
     }
-    .decorazione {
-      position: absolute;
-      width: 150px;
-      height: auto;
-      z-index: 10; /* più alto delle rane */
-      pointer-events: none; /* non blocca i click */
-    }
   </style>
 </head>
 <body>
@@ -92,17 +83,14 @@
   <button id="start-btn">Avvia Gioco 💞</button>
   
   <div id="game-area"></div>
-  <img src="nuvola.png" class="decorazione" style="top: 100px; left: 30%;" />
-  <img src="margherita.png" class="decorazione" style="top: 200px; left: 60%;" />
-
-  <img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
-  <audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
+<img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
+<audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
   
   <div id="victory-message" style="display: none; font-size: 40px; margin-top: 40px; color: #b30059; text-align: center;">
-    💖Bravo, hai vinto un bacio.
-  </div>
+  💖Bravo, hai vinto un bacio.
+</div>
 
-  <audio id="bg-music" loop>
+   <audio id="bg-music" loop>
     <source src="loving-sound.mp3" type="audio/mp3" />
   </audio>
 
@@ -112,13 +100,13 @@
 
  <script>
   const frasi = [
-    `"Sei insieme la quiete e la confusione del mio cuore" – Franz Kafka`,
-    `"Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento" – Eugenio Montale`,
-    `"Sei un cielo stellato" – Cesare Pavese`,
-    `"Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà" – Dostoevskij`,
-    `"Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica" – Murakami`,
-    `"Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte" – Shakespeare`,
-    `"Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi." – D’Annunzio`
+    "Sei insieme la quiete e la confusione del mio cuore" – Franz Kafka,
+    "Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento" – Eugenio Montale,
+    "Sei un cielo stellato" – Cesare Pavese,
+    "Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà" – Dostoevskij,
+    "Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica" – Murakami,
+    "Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte" – Shakespeare,
+    "Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi." – D’Annunzio
   ];
 
   const gameArea = document.getElementById("game-area");
@@ -136,12 +124,12 @@
     phraseEl.className = "phrase-popup";
     phraseEl.textContent = text;
     phraseEl.style.top = (y - 40) + "px";
-    phraseEl.style.left = x + "px";
+    phraseEl.style.left = (x - 150 / 2) + "px";
     document.body.appendChild(phraseEl);
 
     setTimeout(() => {
       phraseEl.remove();
-    }, 4000);
+    }, 8000);
   }
 
   function showVictoryMessage() {
@@ -154,16 +142,15 @@
     index = 0;
     gameArea.style.display = "block";
     victoryGif.style.display = "none";
-    document.getElementById("victory-message").style.display = "none";
+    document.getElementById("victory-message").style.display = "none"; // nasconde il messaggio se stai rigiocando
     bgMusic.play();
-    startBtn.disabled = true;
 
     for (let i = 0; i < frasi.length; i++) {
       const heart = document.createElement('img');
-      heart.src = 'heart.gif'; // metti un cuore, non rana
+      heart.src = 'rana2.gif';
       heart.className = 'heart';
-      heart.style.top = Math.random() * (gameArea.clientHeight - 130) + "px";
-      heart.style.left = Math.random() * (gameArea.clientWidth - 130) + "px";
+      heart.style.top = Math.random() * 400 + "px";
+      heart.style.left = Math.random() * (window.innerWidth - 100) + "px";
 
       heart.addEventListener("click", (e) => {
         if (index < frasi.length) {
@@ -171,7 +158,8 @@
           index++;
           heart.remove();
           popSound.currentTime = 0;
-          popSound.play();
+popSound.play();
+
 
           if (index === frasi.length) {
             setTimeout(() => {
@@ -184,7 +172,6 @@
               victoryGif.style.display = "block";
 
               gameArea.style.display = "none";
-              startBtn.disabled = false;
             }, 2000);
           }
         }
@@ -196,5 +183,3 @@
 
   startBtn.addEventListener("click", startGame);
 </script>
-</body>
-</html>
