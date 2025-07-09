@@ -5,6 +5,28 @@
   <title>Gioco di Cupido 💘</title>
   <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
   <style>
+    .sparkle {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-image:('sparkling heart.gif')
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  animation: sparkle 1s ease-out forwards;
+  z-index: 9999;
+}
+
+@keyframes sparkle {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
     body {
       margin: 0;
       padding: 0;
