@@ -81,6 +81,10 @@
   <img id="cupido" src="cupido.gif" alt="Cupido" />
   <br />
   <button id="start-btn">Avvia Gioco 💞</button>
+  
+  <div id="game-area"></div>
+<img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
+<audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
 
   <div id="game-area"></div>
 
@@ -114,6 +118,8 @@
   const bgMusic = document.getElementById("bg-music");
   const victorySound = document.getElementById("victory-sound");
   const victoryGif = document.getElementById("victory-gif");
+  const popSound = document.getElementById("popSound");
+
 
   let index = 0;
 
@@ -155,6 +161,9 @@
           showPhrase(e.clientX, e.clientY, frasi[index]);
           index++;
           heart.remove();
+          popSound.currentTime = 0;
+popSound.play();
+
 
           if (index === frasi.length) {
             setTimeout(() => {
