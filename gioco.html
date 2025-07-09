@@ -71,6 +71,12 @@
       margin-top: 20px;
       width: 150px;
     }
+    
+    #victory-gif {
+      display: none;
+      width: 250px;
+      margin: 20px auto 0 auto;
+    }
 
     audio {
       display: none;
@@ -85,6 +91,13 @@
   <button id="start-btn">Avvia Gioco 💞</button>
 
   <div id="game-area"></div>
+  
+  !-- Suoni -->
+  <audio id="click-sound" src="https://www.soundjay.com/button/sounds/button-09.mp3" preload="auto"></audio>
+  <audio id="victory-sound" src="https://www.soundjay.com/human/sounds/applause-8.mp3" preload="auto"></audio>
+
+  <!-- Gif esultanza -->
+  <img id="victory-gif" src="https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif" alt="Esultanza" /
 
   <audio id="bg-music" loop autoplay>
     <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
