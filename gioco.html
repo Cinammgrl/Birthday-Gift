@@ -111,12 +111,11 @@
 
   <!-- LIVELLO 2: Cruciverba -->
   <div id="cruciverba-area" style="display: none;">
-    <h2>🧩 Trova la parola dell’amore</h2>
+    <h2>🧩 Cruciverba dell'amore </h2>
     <p style="font-style: italic; font-size: 20px; color: #d63384; text-align: center; margin-bottom: 20px;">
-      “Vorrei darti tutto quello che non hai mai avuto,<br />
-      e neppure così sapresti quanto è meraviglioso amarti.”
+       Indizio: Frida Kahlo, amore e vulnerabilità.
     </p>
-    <p>Completa la parola misteriosa: <strong>_ M _ R _</strong></p>
+    <p>Completa la frase misteriosa: <strong>V_r__ d_rti t_tt_ q__ll_ ch_ n_n h_i m_i _v_t_, _ n_pp_r_ c_sì s_pr_st_ qu_nt_ è m_r_v_gli_s_ _m_rti.</strong></p>
     <input type="text" id="cruciverba-input" placeholder="Scrivi qui..." />
     <button onclick="checkCruciverba()">Invia</button>
     <p id="cruciverba-feedback" style="font-size: 40px; margin-top: 10px;"></p>
@@ -227,20 +226,22 @@
     startBtn.addEventListener("click", startGame);
 
     function checkCruciverba() {
-      const input = document.getElementById("cruciverba-input").value.trim().toUpperCase();
-      const feedback = document.getElementById("cruciverba-feedback");
+  const input = document.getElementById("cruciverba-input").value.trim().toLowerCase();
+  const feedback = document.getElementById("cruciverba-feedback");
 
-      if (input === "AMORE") {
-        feedback.textContent = "💖 Bravo! Passi al livello successivo!";
-        setTimeout(() => {
-          level++;
-          document.getElementById("cruciverba-area").style.display = "none";
-          startGame();
-        }, 2000);
-      } else {
-        feedback.textContent = "❌ Riprova... pensa con il cuore!";
-      }
-    }
+  const solution = "neppure così sapresti quanto è meraviglioso amarti";
+
+  if (input === solution.toLowerCase()) {
+    feedback.textContent = "💖 Perfetto! Hai completato la frase.";
+    setTimeout(() => {
+      level++;
+      document.getElementById("cruciverba-area").style.display = "none";
+      startGame();
+    }, 2000);
+  } else {
+    feedback.textContent = "❌ Non è esatto... rileggi l'indizio con il cuore.";
+  }
+}
 
     function checkQuizAnswer(answer) {
       const feedback = document.getElementById("quiz-feedback");
