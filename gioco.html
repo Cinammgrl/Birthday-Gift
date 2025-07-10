@@ -78,10 +78,10 @@
       font-size: 40px;
     }
     #quiz-question {
-      font-size: 28px;
+      font-size: 30px;
     }
     #cruciverba-area p {
-      font-size: 28px;
+      font-size: 30px;
     }
   </style>
 </head>
@@ -120,7 +120,7 @@
     <p style="font-style: italic; font-size: 20px; color: #d63384; text-align: center; margin-bottom: 20px;">
        Indizio: Hanno creato le sfere del Drago originali e non mangiano cibo.
     </p>
-    <p>Completa la parola misteriosa: <strong>N _ _ _ _ _ _ _ O.</strong></p>
+    <p>Completa la parola misteriosa: <strong>N _ _ _ _ _ _ _ o.</strong></p>
     <input type="text" id="cruciverba-input" placeholder="Scrivi qui..." />
     <button onclick="checkCruciverba()">Invia</button>
     <p id="cruciverba-feedback" style="font-size: 40px; margin-top: 10px;"></p>
@@ -234,7 +234,7 @@
   const input = document.getElementById("cruciverba-input").value.trim().toLowerCase();
   const feedback = document.getElementById("cruciverba-feedback");
 
-  const solution = "neppure così sapresti quanto è meraviglioso amarti";
+  const solution = "Namecciano";
 
   if (input === solution.toLowerCase()) {
     feedback.textContent = "💖 Perfetto! Hai completato la frase.";
