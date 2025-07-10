@@ -70,6 +70,14 @@
       width: 250px;
       margin: 20px auto;
     }
+    #shenron-floating {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+      z-index: 999;
+      opacity: 0.9;
+    }
     audio {
       display: none;
     }
@@ -95,6 +103,7 @@
 
   <div id="game-area"></div>
   <img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
+
   <audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
 
   <div id="victory-message" style="display: none; font-size: 40px; margin-top: 40px; color: #b30059; text-align: center;">
@@ -110,15 +119,12 @@
   </audio>
 
   <!-- LIVELLO 2: Cruciverba -->
-  <div id="cruciverba-area" style="display: none;">
-    <div id="cruciverba-area" style="display: block; text-align: center;">
-  <img src="shenron.gif" alt="Shenron" style="width: 120px; margin-bottom: 10px;" />
-  <h2>🧩 Dragon Ball – Livello Esperto</h2>
-  ...
-</div>
+  <div id="cruciverba-area" style="display: none; text-align: center;">
+    <img id="shenron-floating" src="shenron.gif" alt="Shenron" />
+    <h2>🧩 Dragon Ball – Livello Esperto</h2>
     <h2>🧩 Cruciverba dell'amore </h2>
     <p style="font-style: italic; font-size: 20px; color: #d63384; text-align: center; margin-bottom: 20px;">
-       Indizio: Hanno creato le sfere del Drago originali e non mangiano cibo.
+      Indizio: Hanno creato le sfere del Drago originali e non mangiano cibo.
     </p>
     <p>Completa la parola misteriosa: <strong>N _ _ _ _ _ _ _ o.</strong></p>
     <input type="text" id="cruciverba-input" placeholder="Scrivi qui..." />
@@ -187,6 +193,7 @@
 
       if (level === 1) {
         gameArea.style.display = "block";
+
         const size = 130;
 
         for (let i = 0; i < frasi.length; i++) {
@@ -231,39 +238,25 @@
     startBtn.addEventListener("click", startGame);
 
     function checkCruciverba() {
-  const input = document.getElementById("cruciverba-input").value.trim().toLowerCase();
-  const feedback = document.getElementById("cruciverba-feedback");
+      const input = document.getElementById("cruciverba-input").value.trim().toLowerCase();
+      const feedback = document.getElementById("cruciverba-feedback");
 
-  const solution = "Namecciano";
+      const solution = "NAMECCIANO";
 
-  if (input === solution.toLowerCase()) {
-    feedback.textContent = "💖 Perfetto! Hai completato la frase.";
-    setTimeout(() => {
-      level++;
-      document.getElementById("cruciverba-area").style.display = "none";
-      startGame();
-    }, 2000);
-  } else {
-    feedback.textContent = "❌ Non è esatto... rileggi l'indizio con il cuore.";
-  }
-}
+      if (input === solution.toLowerCase()) {
+        feedback.textContent = "💖 Perfetto! Hai completato la frase.";
+        setTimeout(() => {
+          level++;
+          document.getElementById("cruciverba-area").style.display = "none";
+          startGame();
+        }, 2000);
+      } else {
+        feedback.textContent = "❌ Non è esatto... rileggi l'indizio con il cuore.";
+      }
+    }
 
     function checkQuizAnswer(answer) {
       const feedback = document.getElementById("quiz-feedback");
       if (answer === "Kafka") {
         feedback.textContent = "✅ Esatto! Sei un vero romantico!";
-        setTimeout(() => {
-          showVictoryMessage();
-          document.getElementById("quiz-area").style.display = "none";
-          bgMusic.pause();
-          bgMusic.currentTime = 0;
-          victorySound.play();
-          victoryGif.style.display = "block";
-        }, 1500);
-      } else {
-        feedback.textContent = "❌ Ops, non è la risposta giusta!";
-      }
-    }
-  </script>
-</body>
-</html>
+        setTimeout
