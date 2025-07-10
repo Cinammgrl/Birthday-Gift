@@ -71,13 +71,14 @@
       margin: 20px auto;
     }
     #shenron-floating {
-  position: fixed;
-  top: 20px;
-  left: 10px;
+   position: fixed;
+  bottom: 20px;
+  left: 50%;
   transform: translateX(-50%);
-  width: 200px;
+  width: 120px; /* Più piccola, evita che esca */
   z-index: 999;
   opacity: 0.9;
+  animation: float 3s ease-in-out infinite;
 }
     audio {
       display: none;
