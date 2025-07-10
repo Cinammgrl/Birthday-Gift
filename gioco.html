@@ -259,4 +259,16 @@
       const feedback = document.getElementById("quiz-feedback");
       if (answer === "Kafka") {
         feedback.textContent = "✅ Esatto! Sei un vero romantico!";
-        setTimeout
+        setTimeout(() => {
+          showVictoryMessage();
+          document.getElementById("quiz-area").style.display = "none";
+          bgMusic.pause();
+          bgMusic.currentTime = 0;
+          victorySound.play();
+          victoryGif.style.display = "block";
+        }, 1500);
+      } else {
+        feedback.textContent = "❌ Ops, non è la risposta giusta!";
+      }
+    }
+  </script>
