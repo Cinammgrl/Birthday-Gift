@@ -55,10 +55,7 @@
       animation: fadeInOut 3s ease-in-out forwards;
       z-index: 1000;
     }
-    .img-png {
-  width: 100px;
-  margin: 20px;
-}
+
     @keyframes fadeInOut {
       0% { opacity: 0; transform: translateY(-10px); }
       10% { opacity: 1; }
@@ -99,6 +96,10 @@
   <h3 id="livello-indicatore">Livello: 1</h3>
 
   <div id="game-area"></div>
+  <div id="immagini-cruciverba" class="immagini-statiche" style="display: none;">
+  <img src="sfera.png" class="img-png" />
+  <img src="sfere.png" class="img-png" />
+</div>
   <img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
 
   <audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
@@ -126,11 +127,6 @@
     <input type="text" id="cruciverba-input" placeholder="Scrivi qui..." />
     <button onclick="checkCruciverba()">Invia</button>
     <p id="cruciverba-feedback" style="font-size: 40px; margin-top: 10px;"></p>
-  </div>
- <div class="immagini-statiche">
-    <img src="sfera.png" class="img-png" />
-    <img src="sfere.png" class="img-png" />
-  </div>
 </div>
 
   <!-- LIVELLO 3: Quiz -->
@@ -183,58 +179,28 @@
     }
 
     function startGame() {
-      gameArea.innerHTML = "";
-      index = 0;
-      victoryGif.style.display = "none";
-      document.getElementById("victory-message").style.display = "none";
-      document.getElementById("cruciverba-area").style.display = "none";
-      document.getElementById("quiz-area").style.display = "none";
-      bgMusic.play();
-      document.getElementById("livello-indicatore").textContent = "Livello: " + level;
+  gameArea.innerHTML = "";
+  index = 0;
+  victoryGif.style.display = "none";
+  document.getElementById("victory-message").style.display = "none";
+  document.getElementById("cruciverba-area").style.display = "none";
+  document.getElementById("quiz-area").style.display = "none";
+  document.getElementById("immagini-cruciverba").style.display = "none"; // Nasconde sempre prima
+  bgMusic.play();
+  document.getElementById("livello-indicatore").textContent = "Livello: " + level;
 
-      if (level === 1) {
-        gameArea.style.display = "block";
+  if (level === 1) {
+    gameArea.style.display = "block";
+    // resto del codice livello 1
 
-        const size = 130;
+  } else if (level === 2) {
+    document.getElementById("cruciverba-area").style.display = "block";
+    document.getElementById("immagini-cruciverba").style.display = "block"; // Mostra immagini nel livello 2
 
-        for (let i = 0; i < frasi.length; i++) {
-          const heart = document.createElement('img');
-          heart.src = 'rana2.gif';
-          heart.className = 'heart';
-          heart.style.width = size + "px";
-          heart.style.height = size + "px";
-          heart.style.top = Math.random() * 400 + "px";
-          heart.style.left = Math.random() * (window.innerWidth - size) + "px";
-
-          heart.addEventListener("click", (e) => {
-            if (index < frasi.length) {
-              showPhrase(e.clientX, e.clientY, frasi[index]);
-              index++;
-              heart.remove();
-              popSound.currentTime = 0;
-              popSound.play();
-
-              if (index === frasi.length) {
-                setTimeout(() => {
-                  level++;
-                  gameArea.style.display = "none";
-                  document.getElementById("livello-indicatore").textContent = "Livello 1 completato!";
-                  setTimeout(startGame, 2000);
-                }, 2000);
-              }
-            }
-          });
-
-          gameArea.appendChild(heart);
-        }
-
-      } else if (level === 2) {
-        document.getElementById("cruciverba-area").style.display = "block";
-
-      } else if (level === 3) {
-        document.getElementById("quiz-area").style.display = "block";
-      }
-    }
+  } else if (level === 3) {
+    document.getElementById("quiz-area").style.display = "block";
+  }
+}
 
     startBtn.addEventListener("click", startGame);
 
@@ -259,17 +225,12 @@
     function checkQuizAnswer(answer) {
       const feedback = document.getElementById("quiz-feedback");
       if (answer === "Kafka") {
-        feedback.textContent = "✅ Esatto! Sei un vero romantico!";
-        setTimeout(() => {
-          showVictoryMessage();
-          document.getElementById("quiz-area").style.display = "none";
-          bgMusic.pause();
-          bgMusic.currentTime = 0;
-          victorySound.play();
-          victoryGif.style.display = "block";
-        }, 1500);
+        feedback.textContent = "💘 Esatto! Kafka era un romanticone.";
+        victorySound.play();
+        victoryGif.style.display = "block";
+        showVictoryMessage();
+        bgMusic.pause();
       } else {
-        feedback.textContent = "❌ Ops, non è la risposta giusta!";
+        feedback.textContent = "❌ Risposta sbagliata. Riprova con il cuore!";
       }
     }
-  </script>
