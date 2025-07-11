@@ -54,14 +54,24 @@
       pointer-events: none;
       animation: fadeInOut 3s ease-in-out forwards;
       z-index: 1000;
+
     }
-    .img-png {
-    wwidth: 60px;
-      height: auto;
-position: absolute;
-      z-index: 1;
-      pointer-events: none;
+.img-png {
+  width: 60px;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  }
+    .img-png.sfera {
+      top: 50px;
+      left: 30px;
 }
+.img-png.sfere {
+      top: 50px;
+      left: 30px;
+      }
+   
     @keyframes fadeInOut {
       0% { opacity: 0; transform: translateY(-10px); }
       10% { opacity: 1; }
@@ -103,8 +113,8 @@ position: absolute;
 
   <div id="game-area"></div>
   <div id="immagini-cruciverba" class="immagini-statiche" style="display: none;">
-  <img src="sfera.png" class="img-png" />
-  <img src="sfere.png" class="img-png" />
+  <img src="sfera.png" class="img-png sfera1" />
+  <img src="sfere.png" class="img-png sfera2" />
 </div>
   <img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
 
