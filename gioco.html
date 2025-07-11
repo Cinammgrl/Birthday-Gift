@@ -179,28 +179,58 @@
     }  
   
     function startGame() {  
-  gameArea.innerHTML = "";  
-  index = 0;  
-  victoryGif.style.display = "none";  
-  document.getElementById("victory-message").style.display = "none";  
-  document.getElementById("cruciverba-area").style.display = "none";  
-  document.getElementById("quiz-area").style.display = "none";  
-  document.getElementById("immagini-cruciverba").style.display = "none"; // Nasconde sempre prima  
-  bgMusic.play();  
-  document.getElementById("livello-indicatore").textContent = "Livello: " + level;  
+      gameArea.innerHTML = "";  
+      index = 0;  
+      victoryGif.style.display = "none";  
+      document.getElementById("victory-message").style.display = "none";  
+      document.getElementById("cruciverba-area").style.display = "none";  
+      document.getElementById("quiz-area").style.display = "none";  
+      bgMusic.play();  
+      document.getElementById("livello-indicatore").textContent = "Livello: " + level;  
   
-  if (level === 1) {  
-    gameArea.style.display = "block";  
-    // resto del codice livello 1  
+      if (level === 1) {  
+        gameArea.style.display = "block";  
   
-  } else if (level === 2) {  
-    document.getElementById("cruciverba-area").style.display = "block";  
-    document.getElementById("immagini-cruciverba").style.display = "block"; // Mostra immagini nel livello 2  
+        const size = 130;  
   
-  } else if (level === 3) {  
-    document.getElementById("quiz-area").style.display = "block";  
-  }  
-}  
+        for (let i = 0; i < frasi.length; i++) {  
+          const heart = document.createElement('img');  
+          heart.src = 'rana2.gif';  
+          heart.className = 'heart';  
+          heart.style.width = size + "px";  
+          heart.style.height = size + "px";  
+          heart.style.top = Math.random() * 400 + "px";  
+          heart.style.left = Math.random() * (window.innerWidth - size) + "px";  
+  
+          heart.addEventListener("click", (e) => {  
+            if (index < frasi.length) {  
+              showPhrase(e.clientX, e.clientY, frasi[index]);  
+              index++;  
+              heart.remove();  
+              popSound.currentTime = 0;  
+              popSound.play();  
+  
+              if (index === frasi.length) {  
+                setTimeout(() => {  
+                  level++;  
+                  gameArea.style.display = "none";  
+                  document.getElementById("livello-indicatore").textContent = "Livello 1 completato!";  
+                  setTimeout(startGame, 2000);  
+                }, 2000);  
+              }  
+            }  
+          });  
+  
+          gameArea.appendChild(heart);  
+        }  
+  
+      } else if (level === 2) {  
+        document.getElementById("cruciverba-area").style.display = "block";  
+  
+      } else if (level === 3) {  
+        document.getElementById("quiz-area").style.display = "block";  
+      }  
+    }  
   
     startBtn.addEventListener("click", startGame);  
   
@@ -225,12 +255,17 @@
     function checkQuizAnswer(answer) {  
       const feedback = document.getElementById("quiz-feedback");  
       if (answer === "Kafka") {  
-        feedback.textContent = "💘 Esatto! Kafka era un romanticone.";  
-        victorySound.play();  
-        victoryGif.style.display = "block";  
-        showVictoryMessage();  
-        bgMusic.pause();  
+        feedback.textContent = "✅ Esatto! Sei un vero romantico!";  
+        setTimeout(() => {  
+          showVictoryMessage();  
+          document.getElementById("quiz-area").style.display = "none";  
+          bgMusic.pause();  
+          bgMusic.currentTime = 0;  
+          victorySound.play();  
+          victoryGif.style.display = "block";  
+        }, 1500);  
       } else {  
-        feedback.textContent = "❌ Risposta sbagliata. Riprova con il cuore!";  
+        feedback.textContent = "❌ Ops, non è la risposta giusta!";  
       }  
-    }
+    }  
+  </script>
