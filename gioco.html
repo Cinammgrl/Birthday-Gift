@@ -138,99 +138,99 @@
     <button onclick="checkQuizAnswer('Leopardi')">Giacomo Leopardi</button>
     <p id="quiz-feedback" style="font-size: 40px; margin-top: 10px;"></p>
   </div>
-
+  
   <script>
-    const frasi = [
-      "Sei insieme la quiete e la confusione del mio cuore – Franz Kafka",
-      "Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento – Eugenio Montale",
-      "Sei un cielo stellato – Cesare Pavese",
-      "Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà – Dostoevskij",
-      "Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica – Murakami",
-      "Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte – Shakespeare",
-      "Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi. – D’Annunzio"
-    ];
-
-    const gameArea = document.getElementById("game-area");
-    const startBtn = document.getElementById("start-btn");
-    const bgMusic = document.getElementById("bg-music");
-    const victorySound = document.getElementById("victory-sound");
-    const victoryGif = document.getElementById("victory-gif");
-    const popSound = document.getElementById("popSound");
-
-    let index = 0;
-    let level = 1;
-
-    function showPhrase(x, y, text) {
-      const phraseEl = document.createElement("div");
-      phraseEl.className = "phrase-popup";
-      phraseEl.textContent = text;
-      phraseEl.style.top = (y - 40) + "px";
-      phraseEl.style.left = (x - 75) + "px";
-      document.body.appendChild(phraseEl);
-
-      setTimeout(() => {
-        phraseEl.remove();
-      }, 8000);
-    }
-
-    function showVictoryMessage() {
-      const msg = document.getElementById("victory-message");
-      msg.style.display = "block";
-    }
-
-    function startGame() {
-  gameArea.innerHTML = "";
-  index = 0;
-  victoryGif.style.display = "none";
-  document.getElementById("victory-message").style.display = "none";
-  document.getElementById("cruciverba-area").style.display = "none";
-  document.getElementById("quiz-area").style.display = "none";
-  document.getElementById("immagini-cruciverba").style.display = "none"; // Nasconde sempre prima
-  bgMusic.play();
-  document.getElementById("livello-indicatore").textContent = "Livello: " + level;
-
-  if (level === 1) {
-    gameArea.style.display = "block";
-    // resto del codice livello 1
-
-  } else if (level === 2) {
-    document.getElementById("cruciverba-area").style.display = "block";
-    document.getElementById("immagini-cruciverba").style.display = "block"; // Mostra immagini nel livello 2
-
-  } else if (level === 3) {
-    document.getElementById("quiz-area").style.display = "block";
-  }
-}
-
-    startBtn.addEventListener("click", startGame);
-
-    function checkCruciverba() {
-      const input = document.getElementById("cruciverba-input").value.trim().toLowerCase();
-      const feedback = document.getElementById("cruciverba-feedback");
-
-      const solution = "NAMECCIANO";
-
-      if (input === solution.toLowerCase()) {
-        feedback.textContent = "💖 Perfetto! Hai completato la frase.";
-        setTimeout(() => {
-          level++;
-          document.getElementById("cruciverba-area").style.display = "none";
-          startGame();
-        }, 2000);
-      } else {
-        feedback.textContent = "❌ Non è esatto... rileggi l'indizio con il cuore.";
-      }
-    }
-
-    function checkQuizAnswer(answer) {
-      const feedback = document.getElementById("quiz-feedback");
-      if (answer === "Kafka") {
-        feedback.textContent = "💘 Esatto! Kafka era un romanticone.";
-        victorySound.play();
-        victoryGif.style.display = "block";
-        showVictoryMessage();
-        bgMusic.pause();
-      } else {
-        feedback.textContent = "❌ Risposta sbagliata. Riprova con il cuore!";
-      }
+       const frasi = [  
+      "Sei insieme la quiete e la confusione del mio cuore – Franz Kafka",  
+      "Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento – Eugenio Montale",  
+      "Sei un cielo stellato – Cesare Pavese",  
+      "Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà – Dostoevskij",  
+      "Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica – Murakami",  
+      "Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte – Shakespeare",  
+      "Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi. – D’Annunzio"  
+    ];  
+  
+    const gameArea = document.getElementById("game-area");  
+    const startBtn = document.getElementById("start-btn");  
+    const bgMusic = document.getElementById("bg-music");  
+    const victorySound = document.getElementById("victory-sound");  
+    const victoryGif = document.getElementById("victory-gif");  
+    const popSound = document.getElementById("popSound");  
+  
+    let index = 0;  
+    let level = 1;  
+  
+    function showPhrase(x, y, text) {  
+      const phraseEl = document.createElement("div");  
+      phraseEl.className = "phrase-popup";  
+      phraseEl.textContent = text;  
+      phraseEl.style.top = (y - 40) + "px";  
+      phraseEl.style.left = (x - 75) + "px";  
+      document.body.appendChild(phraseEl);  
+  
+      setTimeout(() => {  
+        phraseEl.remove();  
+      }, 8000);  
+    }  
+  
+    function showVictoryMessage() {  
+      const msg = document.getElementById("victory-message");  
+      msg.style.display = "block";  
+    }  
+  
+    function startGame() {  
+  gameArea.innerHTML = "";  
+  index = 0;  
+  victoryGif.style.display = "none";  
+  document.getElementById("victory-message").style.display = "none";  
+  document.getElementById("cruciverba-area").style.display = "none";  
+  document.getElementById("quiz-area").style.display = "none";  
+  document.getElementById("immagini-cruciverba").style.display = "none"; // Nasconde sempre prima  
+  bgMusic.play();  
+  document.getElementById("livello-indicatore").textContent = "Livello: " + level;  
+  
+  if (level === 1) {  
+    gameArea.style.display = "block";  
+    // resto del codice livello 1  
+  
+  } else if (level === 2) {  
+    document.getElementById("cruciverba-area").style.display = "block";  
+    document.getElementById("immagini-cruciverba").style.display = "block"; // Mostra immagini nel livello 2  
+  
+  } else if (level === 3) {  
+    document.getElementById("quiz-area").style.display = "block";  
+  }  
+}  
+  
+    startBtn.addEventListener("click", startGame);  
+  
+    function checkCruciverba() {  
+      const input = document.getElementById("cruciverba-input").value.trim().toLowerCase();  
+      const feedback = document.getElementById("cruciverba-feedback");  
+  
+      const solution = "NAMECCIANO";  
+  
+      if (input === solution.toLowerCase()) {  
+        feedback.textContent = "💖 Perfetto! Hai completato la frase.";  
+        setTimeout(() => {  
+          level++;  
+          document.getElementById("cruciverba-area").style.display = "none";  
+          startGame();  
+        }, 2000);  
+      } else {  
+        feedback.textContent = "❌ Non è esatto... rileggi l'indizio con il cuore.";  
+      }  
+    }  
+  
+    function checkQuizAnswer(answer) {  
+      const feedback = document.getElementById("quiz-feedback");  
+      if (answer === "Kafka") {  
+        feedback.textContent = "💘 Esatto! Kafka era un romanticone.";  
+        victorySound.play();  
+        victoryGif.style.display = "block";  
+        showVictoryMessage();  
+        bgMusic.pause();  
+      } else {  
+        feedback.textContent = "❌ Risposta sbagliata. Riprova con il cuore!";  
+      }  
     }
