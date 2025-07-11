@@ -70,14 +70,28 @@
       width: 250px;
       margin: 20px auto;
     }
-    #shenron-floating {
-  position: absolute;
-  bottom: 80px;           
-  right: 40px;         
+    @keyframes shenronfly {
+  0% {
+    left: -200px;
+    top: 100px;
+  }
+  50% {
+    left: 50%;
+    top: 80px;
+  }
+  100% {
+    left: 100%;
+    top: 120px;
+  }
+}
+
+#shenron-floating {
+  position: absolute;            
   width: 200px;      
-  max-width: 90vw;    
   z-index: 999;
-  opacity: 0.9;
+  opacity: 0.95;
+  animation: shenronfly 12s linear infinite;
+  pointer-events: none;
 }
     audio {
       display: none;
@@ -121,7 +135,7 @@
 
   <!-- LIVELLO 2: Cruciverba -->
   <div id="cruciverba-area" style="display: none; text-align: center;">
-    <img id="shenron-floating" src="shenron.gif" alt="Shenron" />
+    <img id="shenron-floating" src="shenron.png" alt="Shenron" />
     <h2>🧩 Dragon Ball – Livello Esperto</h2>
     <h2>🧩 Cruciverba dell'amore </h2>
     <p style="font-style: italic; font-size: 40px; color: #d63384; text-align: center; margin-bottom: 20px;">
