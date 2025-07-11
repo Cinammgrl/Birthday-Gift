@@ -55,6 +55,10 @@
       animation: fadeInOut 3s ease-in-out forwards;
       z-index: 1000;
     }
+    .img-png {
+  width: 100px;
+  margin: 20px;
+}
     @keyframes fadeInOut {
       0% { opacity: 0; transform: translateY(-10px); }
       10% { opacity: 1; }
@@ -70,29 +74,7 @@
       width: 250px;
       margin: 20px auto;
     }
-    @keyframes shenronfly {
-  0% {
-    left: -200px;
-    top: 100px;
-  }
-  50% {
-    left: 50%;
-    top: 80px;
-  }
-  100% {
-    left: 100%;
-    top: 120px;
-  }
-}
 
-#shenron-floating {
-  position: absolute;            
-  width: 200px;      
-  z-index: 999;
-  opacity: 0.95;
-  animation: shenronfly 12s linear infinite;
-  pointer-events: none;
-}
     audio {
       display: none;
     }
@@ -119,6 +101,11 @@
   <div id="game-area"></div>
   <img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">
 
+  <div class="immagini-statiche">
+  <img src="sfera.png" class="img-png" />
+  <img src="sfere.png" class="img-png" />
+</div>
+
   <audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
 
   <div id="victory-message" style="display: none; font-size: 40px; margin-top: 40px; color: #b30059; text-align: center;">
@@ -135,7 +122,6 @@
 
   <!-- LIVELLO 2: Cruciverba -->
   <div id="cruciverba-area" style="display: none; text-align: center;">
-    <img id="shenron-floating" src="shenron.png" alt="Shenron" />
     <h2>🧩 Dragon Ball – Livello Esperto</h2>
     <h2>🧩 Cruciverba dell'amore </h2>
     <p style="font-style: italic; font-size: 40px; color: #d63384; text-align: center; margin-bottom: 20px;">
