@@ -189,6 +189,7 @@
       document.getElementById("livello-indicatore").textContent = "Livello: " + level;  
   
       if (level === 1) {  
+        document.getElementById("immagini-cruciverba").style.display = "none";
         gameArea.style.display = "block";  
   
         const size = 130;  
@@ -225,9 +226,11 @@
         }  
   
       } else if (level === 2) {  
-        document.getElementById("cruciverba-area").style.display = "block";  
+        document.getElementById("immagini-cruciverba").style.display = "block";
+  document.getElementById("cruciverba-area").style.display = "block";
   
       } else if (level === 3) {  
+        document.getElementById("immagini-cruciverba").style.display = "none";
         document.getElementById("quiz-area").style.display = "block";  
       }  
     }  
