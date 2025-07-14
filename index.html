@@ -6,24 +6,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins&display=swap" rel="stylesheet" />
   <style>
     body {
-      background: #f8e8eb; /* rosa perla chiaro */
+      background: #f8e8eb;
       font-family: 'Poppins', sans-serif;
       text-align: center;
       padding: 50px 20px;
-      color: #7a4a62; /* viola delicato */
+      color: #7a4a62;
     }
+
     h1 {
       font-family: 'Sacramento', cursive;
       font-size: 4rem;
-      color: #d66c85; /* rosa più acceso */
+      color: #d66c85;
       margin-bottom: 10px;
     }
+
     p {
       font-size: 1.3rem;
       margin: 20px auto;
       max-width: 600px;
       line-height: 1.6;
     }
+
     a {
       display: inline-block;
       margin: 15px 10px;
@@ -37,189 +40,76 @@
       box-shadow: 0 4px 8px rgba(214, 108, 133, 0.4);
       transition: background-color 0.3s ease;
     }
+
     a:hover {
       background: #b15368;
     }
+
     .floating-hearts {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 5;
-}
-
-.floating-hearts .heart {
-  position: absolute;
-  bottom: -50px;
-  width: 30px;
-  height: 30px;
-  background: #b15368;
-  transform: rotate(45deg);
-  animation: floatHeart 8s ease-in infinite;
-}
-
-.floating-hearts .heart::before,
-.floating-hearts .heart::after {
-  content: "";
-  position: absolute;
-  background: #b15368;
-  border-radius: 50%;
-}
-
-.floating-hearts .heart::before {
-  top: -15px;
-  left: 0;
-  width: 30px;
-  height: 30px;
-}
-
-.floating-hearts .heart::after {
-  top: 0;
-  left: 15px;
-  width: 30px;
-  height: 30px;
-}
-
-.floating-hearts .heart:nth-child(1) { left: 10%; animation-duration: 6s; }
-.floating-hearts .heart:nth-child(2) { left: 30%; animation-duration: 8s; }
-.floating-hearts .heart:nth-child(3) { left: 50%; animation-duration: 7s; }
-.floating-hearts .heart:nth-child(4) { left: 70%; animation-duration: 9s; }
-.floating-hearts .heart:nth-child(5) { left: 90%; animation-duration: 8.5s; }
-
-@keyframes floatHeart {
-  0% { transform: translateY(0) rotate(45deg); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translateY(-110vh) rotate(45deg); opacity: 0; }
-}
-
-  </style><!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <title>Buon compleanno amore! 💖🎂</title>
-  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      background: #f8e8eb; /* rosa perla chiaro */
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-      padding: 50px 20px;
-      color: #7a4a62; /* viola delicato */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 5;
     }
-    h1 {
-      font-family: 'Sacramento', cursive;
-      font-size: 4rem;
-      color: #d66c85; /* rosa più acceso */
-      margin-bottom: 10px;
+
+    .floating-hearts .heart {
+      position: absolute;
+      bottom: -50px;
+      width: 30px;
+      height: 30px;
+      background: #ff69b4;
+      transform: rotate(45deg);
+      animation: floatHeart 8s ease-in infinite;
     }
-    p {
-      font-size: 1.3rem;
-      margin: 20px auto;
-      max-width: 600px;
-      line-height: 1.6;
+
+    .floating-hearts .heart::before,
+    .floating-hearts .heart::after {
+      content: "";
+      position: absolute;
+      background: #ff69b4;
+      border-radius: 50%;
     }
-    a {
-      display: inline-block;
-      margin: 15px 10px;
-      padding: 12px 25px;
-      background: #d66c85;
-      color: white;
-      font-weight: 600;
-      font-size: 1.1rem;
-      text-decoration: none;
-      border-radius: 25px;
-      box-shadow: 0 4px 8px rgba(214, 108, 133, 0.4);
-      transition: background-color 0.3s ease;
+
+    .floating-hearts .heart::before {
+      top: -15px;
+      left: 0;
+      width: 30px;
+      height: 30px;
     }
-    a:hover {
-      background: #b15368;
+
+    .floating-hearts .heart::after {
+      top: 0;
+      left: 15px;
+      width: 30px;
+      height: 30px;
     }
-    .floating-hearts {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 5;
-}
 
-.floating-hearts .heart {
-  position: absolute;
-  bottom: -50px;
-  width: 30px;
-  height: 30px;
-  background: red;
-  transform: rotate(45deg);
-  animation: floatHeart 8s ease-in infinite;
-}
+    .floating-hearts .heart:nth-child(1) { left: 10%; animation-duration: 6s; }
+    .floating-hearts .heart:nth-child(2) { left: 30%; animation-duration: 8s; }
+    .floating-hearts .heart:nth-child(3) { left: 50%; animation-duration: 7s; }
+    .floating-hearts .heart:nth-child(4) { left: 70%; animation-duration: 9s; }
+    .floating-hearts .heart:nth-child(5) { left: 90%; animation-duration: 8.5s; }
 
-.floating-hearts .heart::before,
-.floating-hearts .heart::after {
-  content: "";
-  position: absolute;
-  background: red;
-  border-radius: 50%;
-}
-
-.floating-hearts .heart::before {
-  top: -15px;
-  left: 0;
-  width: 30px;
-  height: 30px;
-}
-
-.floating-hearts .heart::after {
-  top: 0;
-  left: 15px;
-  width: 30px;
-  height: 30px;
-}
-
-.floating-hearts .heart:nth-child(1) { left: 10%; animation-duration: 6s; }
-.floating-hearts .heart:nth-child(2) { left: 30%; animation-duration: 8s; }
-.floating-hearts .heart:nth-child(3) { left: 50%; animation-duration: 7s; }
-.floating-hearts .heart:nth-child(4) { left: 70%; animation-duration: 9s; }
-.floating-hearts .heart:nth-child(5) { left: 90%; animation-duration: 8.5s; }
-
-@keyframes floatHeart {
-  0% { transform: translateY(0) rotate(45deg); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translateY(-110vh) rotate(45deg); opacity: 0; }
-}
-
+    @keyframes floatHeart {
+      0% { transform: translateY(0) rotate(45deg); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(45deg); opacity: 0; }
+    }
   </style>
 </head>
 <body>
   <div class="floating-hearts">
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-</div>
-  
-  <h1>Buon compleanno amore! 💖🎂</h1>
-  <p>Questa pagina è un piccolo regalo, fatto con tanto amore e dolcezza per te... 🌸💕</p>
-  <a href="lettera.html">📜 Leggi la tua lettera</a>
-  <a href="gioco.html">🎮 Fai un giochino</a>
-</body>
-</html>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+  </div>
 
-</head>
-<body>
-  <div class="floating-hearts">
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-</div>
-  
   <h1>Buon compleanno amore! 💖🎂</h1>
   <p>Questa pagina è un piccolo regalo, fatto con tanto amore e dolcezza per te... 🌸💕</p>
   <a href="lettera.html">📜 Leggi la tua lettera</a>
