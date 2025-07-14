@@ -112,28 +112,47 @@
   </div>
 
   <script>
-    let slideIndex = 0;
+  let slideIndex = 0;
 
-    function apriBusta() {
-  document.getElementById('envelopeSound').play();   // suono busta
-  document.getElementById('music').play();           // musica romantica
-  document.querySelector('.busta').style.display = 'none';
-  document.getElementById('lettera').style.display = 'flex';
-}
+  const envelopeSound = document.getElementById('envelopeSound');
+  const clickSound = document.getElementById('clickSound');
+  const music = document.getElementById('music');
 
-    function prossimaSlide() {
-document.getElementById('clickSound').play()
-      const slides = document.querySelectorAll('.slide');
-      slides[slideIndex].classList.remove('active');
-      slideIndex++;
-      if (slideIndex >= slides.length - 1) {
-        document.querySelector('button').style.display = 'none';
-      }
-      if (slideIndex < slides.length) {
-        slides[slideIndex].classList.add('active');
-      }
+  music.volume = 0.3; // volume più basso per sottofondo
+
+  function apriBusta() {
+    // Riproduci il suono della busta
+    envelopeSound.currentTime = 0;
+    envelopeSound.play().catch((e) => {
+      console.warn("Impossibile riprodurre envelopeSound:", e);
+    });
+
+    // Avvia la musica
+    music.currentTime = 0;
+    music.play().catch((e) => {
+      console.warn("Impossibile riprodurre la musica:", e);
+    });
+
+    // Mostra la lettera
+    document.querySelector('.busta').style.display = 'none';
+    document.getElementById('lettera').style.display = 'flex';
+  }
+
+  function prossimaSlide() {
+    // Riproduci il suono del click
+    clickSound.currentTime = 0;
+    clickSound.play().catch((e) => {
+      console.warn("Impossibile riprodurre clickSound:", e);
+    });
+
+    const slides = document.querySelectorAll('.slide');
+    slides[slideIndex].classList.remove('active');
+    slideIndex++;
+    if (slideIndex >= slides.length - 1) {
+      document.querySelector('button').style.display = 'none';
     }
-  </script>
-
-</body>
-</html>
+    if (slideIndex < slides.length) {
+      slides[slideIndex].classList.add('active');
+    }
+  }
+</script>
