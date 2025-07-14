@@ -72,7 +72,77 @@ top: 300px;
 left: 350px;
 
 }  
- 
+ .card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.poker-card {
+  width: 150px;
+  height: 220px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.poker-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  backface-visibility: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Georgia', serif;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Fronte */
+.card-front {
+  color: black;
+  border: 2px solid #444;
+}
+
+.card-front .card-header,
+.card-front .card-footer {
+  font-size: 18px;
+}
+
+.card-front .card-symbol {
+  font-size: 48px;
+  margin: auto;
+}
+
+/* Retro */
+.card-back {
+  transform: rotateY(180deg);
+  background-color: #fff5f8;
+  color: #b6004c;
+  border: 2px solid #b6004c;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
 @keyframes fadeInOut {  
   0% { opacity: 0; transform: translateY(-10px); }  
   10% { opacity: 1; }  
@@ -122,7 +192,9 @@ audio {
     <source src="loving-sound.mp3" type="audio/mp3" />  
   </audio>    <audio id="victory-sound" preload="auto">  
     <source src="victory-sound.mp3" type="audio/mp3" />  
-  </audio>    <!-- LIVELLO 2: Cruciverba -->    <div id="cruciverba-area" style="display: none; text-align: center;">  
+  </audio>  
+  
+  <!-- LIVELLO 2: Cruciverba -->    <div id="cruciverba-area" style="display: none; text-align: center;">  
     <h2>🧩 Dragon Ball – Livello Esperto</h2>  
     <h2>🧩 Cruciverba dell'amore </h2>  
     <p style="font-style: italic; font-size: 40px; color: #d63384; text-align: center; margin-bottom: 20px;">  
@@ -132,14 +204,74 @@ audio {
     <input type="text" id="cruciverba-input" placeholder="Scrivi qui..." />  
     <button onclick="checkCruciverba()">Invia</button>  
     <p id="cruciverba-feedback" style="font-size: 40px; margin-top: 10px;"></p>  
-</div>    <!-- LIVELLO 3: Quiz -->    <div id="quiz-area" style="display: none;">  
+</div>  
+  
+  <!-- LIVELLO 3: Quiz -->    <div id="quiz-area" style="display: none;">  
     <h2>💘 Quiz sull’Amore</h2>  
     <p id="quiz-question">Chi è l'autore della frase: "Sei insieme la quiete e la confusione del mio cuore"?</p>  
     <button onclick="checkQuizAnswer('Kafka')">Franz Kafka</button>  
     <button onclick="checkQuizAnswer('Pasolini')">Pier Paolo Pasolini</button>  
     <button onclick="checkQuizAnswer('Leopardi')">Giacomo Leopardi</button>  
     <p id="quiz-feedback" style="font-size: 40px; margin-top: 10px;"></p>  
-  </div>    <script>  
+  </div>   
+  <!-- LIVELLO 4 - Carte da gioco con semi -->
+<div id="card-level" style="display: none; text-align: center;">
+  <h2>♥️-Tarocchi delle anime gemelle</h2>
+  <p> Scegli una carta e scopri la domanda! .</p>
+  <div class="card-container">
+    
+    <!-- Carta 1: Cuori -->
+    <div class="poker-card" onclick="flipCard(this)">
+      <div class="card-inner">
+        <div class="card-front">
+          <div class="card-header">A♥️</div>
+          <div class="card-symbol">♥️</div>
+          <div class="card-footer">A</div>
+        </div>
+        <div class="card-back">Quante volte hai offeso te stesso, nel frattempo hai mai pensato al te bambino mentre avevi quei pensieri?</div>
+      </div>
+    </div>
+    
+    <!-- Carta 2: Picche -->
+    <div class="poker-card" onclick="flipCard(this)">
+      <div class="card-inner">
+        <div class="card-front">
+          <div class="card-header">Q♠️</div>
+          <div class="card-symbol">♠️</div>
+          <div class="card-footer">Q</div>
+        </div>
+        <div class="card-back">Ami te stesso?</div>
+      </div>
+    </div>
+
+    <!-- Carta 3: Quadri -->
+    <div class="poker-card" onclick="flipCard(this)">
+      <div class="card-inner">
+        <div class="card-front">
+          <div class="card-header">10♦️</div>
+          <div class="card-symbol">♦️</div>
+          <div class="card-footer">10</div>
+        </div>
+        <div class="card-back">Ti sei mai ritenuto non apprezzato dagli altri ?</div>
+      </div>
+    </div>
+
+    <!-- Carta 4: Fiori -->
+    <div class="poker-card" onclick="flipCard(this)">
+      <div class="card-inner">
+        <div class="card-front">
+          <div class="card-header">J♣️</div>
+          <div class="card-symbol">♣️</div>
+          <div class="card-footer">J</div>
+        </div>
+        <div class="card-back">Cosa pensi di te stesso? Scrivi tutto ciò che pensi</div>
+      </div>
+    </div>
+    <button id="concludi-livello4" onclick="mostraVittoria(4)">Concludi ♥️</button>
+
+  </div>
+</div>
+  <script>  
        const frasi = [    
       "Sei insieme la quiete e la confusione del mio cuore – Franz Kafka",    
       "Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento – Eugenio Montale",    
@@ -202,7 +334,42 @@ audio {
           heart.style.height = size + "px";    
           heart.style.top = Math.random() * 400 + "px";    
           heart.style.left = Math.random() * (window.innerWidth - size) + "px";    
+    function showVictoryMessage() {    
+      const msg = document.getElementById("victory-message");    
+      msg.style.display = "block";    
+    }    
     
+    function startGame() {    
+      gameArea.innerHTML = "";    
+      index = 0;    
+      victoryGif.style.display = "none";    
+      document.getElementById("victory-message").style.display = "none";    
+      document.getElementById("cruciverba-area").style.display = "none";    
+      document.getElementById("quiz-area").style.display = "none";    
+      bgMusic.play();    
+      document.getElementById("livello-indicatore").textContent = "Livello: " + level;    
+    
+      if (level === 1) {    
+        document.getElementById("immagini-cruciverba").style.display = "none";  
+        gameArea.style.display = "block";    
+    
+        const size = 130;    
+    
+        for (let i = 0; i < frasi.length; i++) {    
+          const heart = document.createElement('img');    
+          heart.src = 'rana2.gif';    
+          heart.className = 'heart';    
+          heart.style.width = size + "px";    
+          heart.style.height = size + "px";    
+          heart.style.top = Math.random() * 400 + "px";    
+          heart.style.left = Math.random() * (window.innerWidth - size) + "px";    
+    
+          heart.addEventListener("click", (e) => {    
+            if (index < frasi.length) {    
+              showPhrase(e.clientX, e.clientY, frasi[index]);    
+              index++;    
+              heart.remove();    
+              popSound.currentTime = 0;    
           heart.addEventListener("click", (e) => {    
             if (index < frasi.length) {    
               showPhrase(e.clientX, e.clientY, frasi[index]);    
@@ -232,7 +399,14 @@ audio {
       } else if (level === 3) {    
         document.getElementById("immagini-cruciverba").style.display = "none";  
         document.getElementById("quiz-area").style.display = "block";    
-      }    
+      }  
+          else if (level === 4) {
+  showVictoryMessage();
+  victoryGif.style.display = "block"; // se vuoi mostrare anche la gif
+  document.getElementById("quiz-area").style.display = "none"; // nasconde quiz
+  gameArea.style.display = "none"; // nasconde area di gioco
+  bgMusic.pause();
+}
     }    
     
     startBtn.addEventListener("click", startGame);    
@@ -271,4 +445,11 @@ audio {
         feedback.textContent = "❌ Ops, non è la risposta giusta!";    
       }    
     }    
+    function showLevel4() {
+  document.getElementById('livello-indicatore').textContent = 'Livello: 4';
+  document.getElementById('card-level').style.display = 'block';
+}
+    function flipCard(cardElement) {
+  cardElement.classList.toggle('flipped');
+}
   </script>  
