@@ -2,60 +2,132 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Lettera d'amore</title>
+  <title>Busta d'amore</title>
   <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Sacramento', cursive;
       background-color: #ffe6f0;
-      background-image: url('cuoricini.png');
+      background-image: url('cuoricini.png'); /* puoi cambiare questo */
       background-repeat: repeat;
       background-size: 150px;
-      color: #8b4d6c;
-      font-size: 30px;
-      padding: 30px;
-      line-height: 1.8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
     }
-   .lettera {
+
+    .busta {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background: #f9c2d1;
+      border: 2px solid #8b4d6c;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s ease;
+    }
+
+    .busta::before {
+      content: "💌 Clicca per aprire";
+      font-size: 24px;
+      color: #8b4d6c;
+    }
+
+    .slide-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
       max-width: 800px;
-      margin: auto;
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.85);
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .slide {
+      display: none;
+      font-size: 28px;
+      color: #8b4d6c;
+      margin-bottom: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    button {
+      font-family: 'Sacramento', cursive;
+      font-size: 24px;
+      padding: 10px 20px;
+      background-color: #f9c2d1;
+      border: none;
+      border-radius: 10px;
+      color: #8b4d6c;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #f4a3b2;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="lettera">
-    💌  
-    <p>Profumi di rose immerse nel fumo di tabacco, all’alba di una primavera estiva. Un aroma squisito, seducente, che mi entra nelle narici e si aggrappa all’anima senza più lasciarla.</p>
 
-    <p>Così mi prendi, ogni volta. 💘</p>
+  <div class="busta" onclick="apriBusta()"></div>
 
-    <p>La tua anima non appartiene a nessuno, la tua mente di diamante è unica, irripetibile. 💎</p>
-
-    <p>Il mio tutto. Il mio mondo. Il mio Re. Il mio Romeo. Il mio Clyde. 👑❤️</p>
-
-    <p>Per te morirei, e vivrei una vita contro ogni regola, contro il mondo, solo per starti accanto. 🌍🔥</p>
-
-    <p>Perché la prigione non è nulla, se ho te. 🔐</p>
-
-    <p>Hai un’anima da rock and roll e mi scuoti come solo i Mötley Crüe saprebbero fare. 🎸🤘</p>
-
-    <p>Voglio essere la tua corda, quella che pizzichi con le dita fino a farmi impazzire. 🎶</p>
-
-    <p>Suonami in ogni tua notte, in ogni tuo concerto, elettrizzami. ⚡</p>
-
-    <p>Sei il mio Sid, io la tua Nancy — ma con un amore più regolare, più nostro, più sano. 🎤💔</p>
-
-    <p>La mia anima è fusa alla tua: siamo una sostanza sola, un unico spirito. 🕊️</p>
-
-    <p>E non potrei esserne più felice. 💖</p>
-
-    <p>Tua,<br>J. 💌</p>
-
-    <p>Ti amo. 💘</p>
+  <div class="slide-container" id="lettera">
+    <div class="slide active">Profumi di rose immerse nel fumo di tabacco, all’alba di una primavera estiva.</div>
+    <div class="slide">Così mi prendi, ogni volta. 💘</div>
+    <div class="slide">La tua anima non appartiene a nessuno, la tua mente di diamante è unica. 💎</div>
+    <div class="slide">Il mio tutto. Il mio mondo. Il mio Re. Il mio Romeo. Il mio Clyde. 👑❤️</div>
+    <div class="slide">Per te morirei, e vivrei una vita contro ogni regola. 🌍🔥</div>
+    <div class="slide">Perché la prigione non è nulla, se ho te. 🔐</div>
+    <div class="slide">Hai un’anima da rock and roll e mi scuoti come solo i Mötley Crüe. 🎸🤘</div>
+    <div class="slide">Voglio essere la tua corda, quella che pizzichi con le dita. 🎶</div>
+    <div class="slide">Suonami in ogni tua notte, in ogni tuo concerto, elettrizzami. ⚡</div>
+    <div class="slide">Sei il mio Sid, io la tua Nancy — ma con un amore più sano. 🎤💔</div>
+    <div class="slide">La mia anima è fusa alla tua: siamo una sostanza sola. 🕊️</div>
+    <div class="slide">E non potrei esserne più felice. 💖</div>
+    <div class="slide">Tua,<br>J. 💌</div>
+    <div class="slide">Ti amo. 💘</div>
+    <button onclick="prossimaSlide()">➡ Avanti</button>
   </div>
+
+  <script>
+    let slideIndex = 0;
+
+    function apriBusta() {
+      document.querySelector('.busta').style.display = 'none';
+      document.getElementById('lettera').style.display = 'flex';
+    }
+
+    function prossimaSlide() {
+      const slides = document.querySelectorAll('.slide');
+      slides[slideIndex].classList.remove('active');
+      slideIndex++;
+      if (slideIndex >= slides.length - 1) {
+        document.querySelector('button').style.display = 'none';
+      }
+      if (slideIndex < slides.length) {
+        slides[slideIndex].classList.add('active');
+      }
+    }
+  </script>
+
 </body>
 </html>
