@@ -308,35 +308,8 @@ audio {
     function showVictoryMessage() {    
       const msg = document.getElementById("victory-message");    
       msg.style.display = "block";    
-    }    
+    }   
     
-    function startGame() {    
-      gameArea.innerHTML = "";    
-      index = 0;    
-      victoryGif.style.display = "none";    
-      document.getElementById("victory-message").style.display = "none";    
-      document.getElementById("cruciverba-area").style.display = "none";    
-      document.getElementById("quiz-area").style.display = "none";    
-      bgMusic.play();    
-      document.getElementById("livello-indicatore").textContent = "Livello: " + level;    
-    
-      if (level === 1) {    
-        document.getElementById("immagini-cruciverba").style.display = "none";  
-        gameArea.style.display = "block";    
-    
-        const size = 130;    
-    
-        for (let i = 0; i < frasi.length; i++) {    
-          const heart = document.createElement('img');    
-          heart.src = 'rana2.gif';    
-          heart.className = 'heart';    
-          heart.style.width = size + "px";    
-          heart.style.height = size + "px";    
-          heart.style.top = Math.random() * 400 + "px";    
-          heart.style.left = Math.random() * (window.innerWidth - size) + "px";    
-    function showVictoryMessage() {    
-      const msg = document.getElementById("victory-message");    
-      msg.style.display = "block";    
     }    
     
     function startGame() {    
