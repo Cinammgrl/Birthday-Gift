@@ -352,7 +352,12 @@
       } else {  
         feedback.textContent = "❌ Non è esatto... rileggi l'indizio con il cuore.";  
 }
-  
+
+      function mostraLivello4() {
+  document.getElementById("quiz-area").style.display = "none";
+  document.getElementById("card-level").style.display = "block";
+  document.getElementById("livello-indicatore").textContent = "Livello: 4";
+}
     function startGame() {  
       gameArea.innerHTML = "";  
       index = 0;  
@@ -424,7 +429,17 @@
         }, 1500);  
       } else {  
         feedback.textContent = "❌ Ops, non è la risposta giusta!";  
-      }  
+      }
+      function checkQuizAnswer(answer) {
+  const feedback = document.getElementById("quiz-feedback");
+  if (answer === "Kafka") {
+    feedback.textContent = "✔️ Esatto!";
+    setTimeout(() => {
+      mostraLivello4(); // Vai al livello 4 dopo risposta corretta
+    }, 1500);
+  } else {
+    feedback.textContent = "❌ Ritenta!";
+  }
     }  
 function flipCard(card) {
   card.classList.toggle("flipped");
