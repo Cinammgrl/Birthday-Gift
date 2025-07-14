@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="it">  
+<head>  
+  <meta charset="UTF-8" />  
+  <title>Gioco di Cupido 💘</title>  
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet" />  
+  <style>  
+    body {  
+      margin: 0;  
+      padding: 0;  
+      font-family: 'Sacramento', cursive;  
+      background-color: #ffe6f0;  
+      background-image: url('heart 3.jpg');  
+      background-repeat: repeat;  
+      background-size: cover;  
+      color: #b30059;  
+      text-align: center;  
+      overflow-x: hidden;  
+    }  
+    h1 {  
+      margin-top: 30px;  
+      font-size: 50px;  
+    }  
+    #start-btn {  
+      font-size: 24px;  
+      padding: 10px 30px;  
+      background-color: #ff99cc;  
+      border: none;  
+      border-radius: 15px;  
+      cursor: pointer;  
+      margin-bottom: 20px;  
+    }  
+    #game-area {  
+      display: none;  
+      position: relative;  
+      width: 100%;  
+      height: 500px;  
+    }  
+    .heart {  
+      position: absolute;  
+      width: 130px;  
+      height: 130px;  
+      cursor: pointer;  
+    }  
+    .phrase-popup {  
+      position: absolute;  
+      background-color: rgba(255, 255, 255, 0.85);  
+      color: #b30059;  
+      font-size: 36px;  
+      padding: 10px 15px;  
+      border-radius: 12px;  
+      max-width: 300px;  
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);  
+      pointer-events: none;  
+      animation: fadeInOut 3s ease-in-out forwards;  
+      z-index: 1000;  }
+
+.img-png {
+width: 100px;
+height: auto;
+position: absolute;
+z-index: 1;
+pointer-events: none;
+}
+.img-png.sfera1 {
+top: 300px;
+left: 900px;
+}
+.img-png.sfera2 {
+top: 300px;
+left: 350px;
+
+}  
+ 
+@keyframes fadeInOut {  
+  0% { opacity: 0; transform: translateY(-10px); }  
+  10% { opacity: 1; }  
+  90% { opacity: 1; }  
+  100% { opacity: 0; transform: translateY(-20px); }  
+}  
+#cupido {  
+  margin-top: 20px;  
+  width: 150px;  
+}  
+#victory-gif {  
+  display: none;  
+  width: 250px;  
+  margin: 20px auto;  
+}  
+
+audio {  
+  display: none;  
+}  
+#cruciverba-area h2,  
+#quiz-area h2 {  
+  font-size: 40px;  
+}  
+#quiz-question {  
+  font-size: 30px;  
+}  
+#cruciverba-area p {  
+  font-size: 30px;  
+}
+
+  </style>  
+</head>  
+<body>    <h1>🎯 Gioco di Cupido 💘</h1>  
+  <img id="cupido" src="cupido.gif" alt="Cupido" />  
+  <br />  
+  <button id="start-btn">Avvia Gioco 💞</button>  
+  <h3 id="livello-indicatore">Livello: 1</h3>    <div id="game-area"></div>  
+  <div id="immagini-cruciverba" class="immagini-statiche" style="display: none;">  
+  <img src="sfera.png" class="img-png sfera1" />  
+  <img src="sfere.png" class="img-png sfera2" />  
+</div>  
+  <img id="victory-gif" src="kiss.gif" alt="Hai vinto un bacio!">  <audio id="popSound" src="pop sound.mp3" preload="auto"></audio>
+
+  <div id="victory-message" style="display: none; font-size: 40px; margin-top: 40px; color: #b30059; text-align: center;">  
+    💖Bravo, hai vinto un bacio.  
+  </div>    <audio id="bg-music" loop>  
+    <source src="loving-sound.mp3" type="audio/mp3" />  
+  </audio>    <audio id="victory-sound" preload="auto">  
+    <source src="victory-sound.mp3" type="audio/mp3" />  
+  </audio>    <!-- LIVELLO 2: Cruciverba -->    <div id="cruciverba-area" style="display: none; text-align: center;">  
+    <h2>🧩 Dragon Ball – Livello Esperto</h2>  
+    <h2>🧩 Cruciverba dell'amore </h2>  
+    <p style="font-style: italic; font-size: 40px; color: #d63384; text-align: center; margin-bottom: 20px;">  
+      Indizio: Hanno creato le sfere del Drago originali e non mangiano cibo.  
+    </p>  
+    <p>Completa la parola misteriosa: <strong>N _ _ _ _ _ _ _ o.</strong></p>  
+    <input type="text" id="cruciverba-input" placeholder="Scrivi qui..." />  
+    <button onclick="checkCruciverba()">Invia</button>  
+    <p id="cruciverba-feedback" style="font-size: 40px; margin-top: 10px;"></p>  
+</div>    <!-- LIVELLO 3: Quiz -->    <div id="quiz-area" style="display: none;">  
+    <h2>💘 Quiz sull’Amore</h2>  
+    <p id="quiz-question">Chi è l'autore della frase: "Sei insieme la quiete e la confusione del mio cuore"?</p>  
+    <button onclick="checkQuizAnswer('Kafka')">Franz Kafka</button>  
+    <button onclick="checkQuizAnswer('Pasolini')">Pier Paolo Pasolini</button>  
+    <button onclick="checkQuizAnswer('Leopardi')">Giacomo Leopardi</button>  
+    <p id="quiz-feedback" style="font-size: 40px; margin-top: 10px;"></p>  
+  </div>    <script>  
+       const frasi = [    
+      "Sei insieme la quiete e la confusione del mio cuore – Franz Kafka",    
+      "Se l'aria mi raccontasse di te vorrei perdermi per sempre nel vento – Eugenio Montale",    
+      "Sei un cielo stellato – Cesare Pavese",    
+      "Non mi riuscirà più di sognare dopo essere stato così felice accanto a te nella realtà – Dostoevskij",    
+      "Se tu ti ricordi di me, allora non importa se tutto il mondo mi dimentica – Murakami",    
+      "Quando non sarai più parte di me... il cielo sarà così bello che tutto il mondo si innamorerà della notte – Shakespeare",    
+      "Perché io non so dire quel che i suoi occhi mi fanno provare... Occhi. I suoi. – D’Annunzio"    
+    ];    
+    
+    const gameArea = document.getElementById("game-area");    
+    const startBtn = document.getElementById("start-btn");    
+    const bgMusic = document.getElementById("bg-music");    
+    const victorySound = document.getElementById("victory-sound");    
+    const victoryGif = document.getElementById("victory-gif");    
+    const popSound = document.getElementById("popSound");    
+    
+    let index = 0;    
+    let level = 1;    
+    
+    function showPhrase(x, y, text) {    
+      const phraseEl = document.createElement("div");    
+      phraseEl.className = "phrase-popup";    
+      phraseEl.textContent = text;    
+      phraseEl.style.top = (y - 40) + "px";    
+      phraseEl.style.left = (x - 75) + "px";    
+      document.body.appendChild(phraseEl);    
+    
+      setTimeout(() => {    
+        phraseEl.remove();    
+      }, 8000);    
+    }    
+    
+    function showVictoryMessage() {    
+      const msg = document.getElementById("victory-message");    
+      msg.style.display = "block";    
+    }    
+    
+    function startGame() {    
+      gameArea.innerHTML = "";    
+      index = 0;    
+      victoryGif.style.display = "none";    
+      document.getElementById("victory-message").style.display = "none";    
+      document.getElementById("cruciverba-area").style.display = "none";    
+      document.getElementById("quiz-area").style.display = "none";    
+      bgMusic.play();    
+      document.getElementById("livello-indicatore").textContent = "Livello: " + level;    
+    
+      if (level === 1) {    
+        document.getElementById("immagini-cruciverba").style.display = "none";  
+        gameArea.style.display = "block";    
+    
+        const size = 130;    
+    
+        for (let i = 0; i < frasi.length; i++) {    
+          const heart = document.createElement('img');    
+          heart.src = 'rana2.gif';    
+          heart.className = 'heart';    
+          heart.style.width = size + "px";    
+          heart.style.height = size + "px";    
+          heart.style.top = Math.random() * 400 + "px";    
+          heart.style.left = Math.random() * (window.innerWidth - size) + "px";    
+    
+          heart.addEventListener("click", (e) => {    
+            if (index < frasi.length) {    
+              showPhrase(e.clientX, e.clientY, frasi[index]);    
+              index++;    
+              heart.remove();    
+              popSound.currentTime = 0;    
+              popSound.play();    
+    
+              if (index === frasi.length) {    
+                setTimeout(() => {    
+                  level++;    
+                  gameArea.style.display = "none";    
+                  document.getElementById("livello-indicatore").textContent = "Livello 1 completato!";    
+                  setTimeout(startGame, 2000);    
+                }, 2000);    
+              }    
+            }    
+          });    
+    
+          gameArea.appendChild(heart);    
+        }    
+    
+      } else if (level === 2) {    
+        document.getElementById("immagini-cruciverba").style.display = "block";  
+  document.getElementById("cruciverba-area").style.display = "block";  
+    
+      } else if (level === 3) {    
+        document.getElementById("immagini-cruciverba").style.display = "none";  
+        document.getElementById("quiz-area").style.display = "block";    
+      }    
+    }    
+    
+    startBtn.addEventListener("click", startGame);    
+    
+    function checkCruciverba() {    
+      const input = document.getElementById("cruciverba-input").value.trim().toLowerCase();    
+      const feedback = document.getElementById("cruciverba-feedback");    
+    
+      const solution = "NAMECCIANO";    
+    
+      if (input === solution.toLowerCase()) {    
+        feedback.textContent = "💖 Perfetto! Hai completato la frase.";    
+        setTimeout(() => {    
+          level++;    
+          document.getElementById("cruciverba-area").style.display = "none";    
+          startGame();    
+        }, 2000);    
+      } else {    
+        feedback.textContent = "❌ Non è esatto... rileggi l'indizio con il cuore.";    
+      }    
+    }    
+    
+    function checkQuizAnswer(answer) {    
+      const feedback = document.getElementById("quiz-feedback");    
+      if (answer === "Kafka") {    
+        feedback.textContent = "✅ Esatto! Sei un vero romantico!";    
+        setTimeout(() => {    
+          showVictoryMessage();    
+          document.getElementById("quiz-area").style.display = "none";    
+          bgMusic.pause();    
+          bgMusic.currentTime = 0;    
+          victorySound.play();    
+          victoryGif.style.display = "block";    
+        }, 1500);    
+      } else {    
+        feedback.textContent = "❌ Ops, non è la risposta giusta!";    
+      }    
+    }    
+  </script>  
