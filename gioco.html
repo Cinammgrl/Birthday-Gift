@@ -281,7 +281,7 @@
         <div class="card-back">Cosa pensi di te stesso? Scrivi tutto ciò che pensi</div>
       </div>
     </div>
-    <button id="concludi-livello4" onclick="mostraVittoria()">Concludi ♥️</button>
+    <button id="concludi-livello4" onclick="mostraVittoria(4)">Concludi ♥️</button>
 
   </div>
 </div>
@@ -319,10 +319,38 @@
       }, 8000);  
     }  
   
-    function mostraVittoria() {
-  document.getElementById("victory-gif").style.display = "block";
-  document.getElementById("victory-message").style.display = "block";
-  document.getElementById("victory-sound").play();
+    function mostraVittoria(livello) {
+  if (livello === 4) {
+    document.getElementById("victory-gif").style.display = "block";
+    document.getElementById("victory-message").style.display = "block";
+    document.getElementById("victory-sound").play();
+    // Sposta il messaggio di vittoria nella posizione desiderata
+    document.getElementById("victory-message").style.top = "500px";
+  } else {
+    // Mostra il messaggio di vittoria come al solito
+    document.getElementById("victory-gif").style.display = "block";
+    document.getElementById("victory-message").style.display = "block";
+    document.getElementById("victory-sound").play();
+  }
+    }  
+  
+    startBtn.addEventListener("click", startGame);  
+  
+    function checkCruciverba() {  
+      const input = document.getElementById("cruciverba-input").value.trim().toLowerCase();  
+      const feedback = document.getElementById("cruciverba-feedback");  
+  
+      const solution = "NAMECCIANO";  
+  
+      if (input === solution.toLowerCase()) {  
+        feedback.textContent = "💖 Perfetto! Hai completato la frase.";  
+        setTimeout(() => {  
+          level++;  
+          document.getElementById("cruciverba-area").style.display = "none";  
+          startGame();  
+        }, 2000);  
+      } else {  
+        feedback.textContent = "❌ Non è esatto... rileggi l'indizio con il cuore.";  
 }
   
     function startGame() {  
@@ -379,26 +407,6 @@
       } else if (level === 3) {  
         document.getElementById("immagini-cruciverba").style.display = "none";
         document.getElementById("quiz-area").style.display = "block";  
-      }  
-    }  
-  
-    startBtn.addEventListener("click", startGame);  
-  
-    function checkCruciverba() {  
-      const input = document.getElementById("cruciverba-input").value.trim().toLowerCase();  
-      const feedback = document.getElementById("cruciverba-feedback");  
-  
-      const solution = "NAMECCIANO";  
-  
-      if (input === solution.toLowerCase()) {  
-        feedback.textContent = "💖 Perfetto! Hai completato la frase.";  
-        setTimeout(() => {  
-          level++;  
-          document.getElementById("cruciverba-area").style.display = "none";  
-          startGame();  
-        }, 2000);  
-      } else {  
-        feedback.textContent = "❌ Non è esatto... rileggi l'indizio con il cuore.";  
       }  
     }  
   
