@@ -87,6 +87,9 @@
   </style>
 </head>
 <body>
+  <audio id="clickSound" src="page turns.mp3" preload="auto"></audio>
+<audio id="envelopeSound" src="envelope.mp3" preload="auto"></audio>
+<audio id="music" src="romantic music.mp3" preload="auto" loop></audio>
 
   <div class="busta" onclick="apriBusta()"></div>
 
@@ -112,11 +115,14 @@
     let slideIndex = 0;
 
     function apriBusta() {
-      document.querySelector('.busta').style.display = 'none';
-      document.getElementById('lettera').style.display = 'flex';
-    }
+  document.getElementById('envelopeSound').play();   // suono busta
+  document.getElementById('music').play();           // musica romantica
+  document.querySelector('.busta').style.display = 'none';
+  document.getElementById('lettera').style.display = 'flex';
+}
 
     function prossimaSlide() {
+document.getElementById('clickSound').play()
       const slides = document.querySelectorAll('.slide');
       slides[slideIndex].classList.remove('active');
       slideIndex++;
