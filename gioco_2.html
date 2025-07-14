@@ -311,75 +311,64 @@ audio {
     }   
     
     }    
-    
     function startGame() {    
-      gameArea.innerHTML = "";    
-      index = 0;    
-      victoryGif.style.display = "none";    
-      document.getElementById("victory-message").style.display = "none";    
-      document.getElementById("cruciverba-area").style.display = "none";    
-      document.getElementById("quiz-area").style.display = "none";    
-      bgMusic.play();    
-      document.getElementById("livello-indicatore").textContent = "Livello: " + level;    
-    
-      if (level === 1) {    
-        document.getElementById("immagini-cruciverba").style.display = "none";  
-        gameArea.style.display = "block";    
-    
-        const size = 130;    
-    
-        for (let i = 0; i < frasi.length; i++) {    
-          const heart = document.createElement('img');    
-          heart.src = 'rana2.gif';    
-          heart.className = 'heart';    
-          heart.style.width = size + "px";    
-          heart.style.height = size + "px";    
-          heart.style.top = Math.random() * 400 + "px";    
-          heart.style.left = Math.random() * (window.innerWidth - size) + "px";    
-    
-          heart.addEventListener("click", (e) => {    
-            if (index < frasi.length) {    
-              showPhrase(e.clientX, e.clientY, frasi[index]);    
-              index++;    
-              heart.remove();    
-              popSound.currentTime = 0;    
-          heart.addEventListener("click", (e) => {    
-            if (index < frasi.length) {    
-              showPhrase(e.clientX, e.clientY, frasi[index]);    
-              index++;    
-              heart.remove();    
-              popSound.currentTime = 0;    
-              popSound.play();    
-    
-              if (index === frasi.length) {    
-                setTimeout(() => {    
-                  level++;    
-                  gameArea.style.display = "none";    
-                  document.getElementById("livello-indicatore").textContent = "Livello 1 completato!";    
-                  setTimeout(startGame, 2000);    
-                }, 2000);    
-              }    
-            }    
-          });    
-    
-          gameArea.appendChild(heart);    
-        }    
-    
-      } else if (level === 2) {    
-        document.getElementById("immagini-cruciverba").style.display = "block";  
-  document.getElementById("cruciverba-area").style.display = "block";  
-    
-      } else if (level === 3) {    
-        document.getElementById("immagini-cruciverba").style.display = "none";  
-        document.getElementById("quiz-area").style.display = "block";    
-      }  
-          else if (level === 4) {
-  showVictoryMessage();
-  victoryGif.style.display = "block"; // se vuoi mostrare anche la gif
-  document.getElementById("quiz-area").style.display = "none"; // nasconde quiz
-  gameArea.style.display = "none"; // nasconde area di gioco
-  bgMusic.pause();
-}
+  gameArea.innerHTML = "";    
+  index = 0;    
+  victoryGif.style.display = "none";    
+  document.getElementById("victory-message").style.display = "none";    
+  document.getElementById("cruciverba-area").style.display = "none";    
+  document.getElementById("quiz-area").style.display = "none";    
+  bgMusic.play();    
+  document.getElementById("livello-indicatore").textContent = "Livello: " + level;    
+
+  if (level === 1) {    
+    document.getElementById("immagini-cruciverba").style.display = "none";  
+    gameArea.style.display = "block";    
+
+    const size = 130;    
+
+    for (let i = 0; i < frasi.length; i++) {    
+      const heart = document.createElement('img');    
+      heart.src = 'rana2.gif';    
+      heart.className = 'heart';    
+      heart.style.width = size + "px";    
+      heart.style.height = size + "px";    
+      heart.style.position = "absolute";  // Importantissimo per posizionamento    
+      heart.style.top = Math.random() * 400 + "px";    
+      heart.style.left = Math.random() * (window.innerWidth - size) + "px";    
+
+      heart.addEventListener("click", (e) => {    
+        if (index < frasi.length) {    
+          showPhrase(e.clientX, e.clientY, frasi[index]);    
+          index++;    
+          heart.remove();    
+          popSound.currentTime = 0;    
+          popSound.play();    
+
+          if (index === frasi.length) {    
+            setTimeout(() => {    
+              level++;    
+              gameArea.style.display = "none";    
+              document.getElementById("livello-indicatore").textContent = "Livello 1 completato!";    
+              setTimeout(startGame, 2000);   
+      gameArea.appendChild(heart);    
+    }    
+
+  } else if (level === 2) {    
+    document.getElementById("immagini-cruciverba").style.display = "block";  
+    document.getElementById("cruciverba-area").style.display = "block";  
+
+  } else if (level === 3) {    
+    document.getElementById("immagini-cruciverba").style.display = "none";  
+    document.getElementById("quiz-area").style.display = "block";    
+
+  } else if (level === 4) {
+    showVictoryMessage();
+    victoryGif.style.display = "block"; // se vuoi mostrare anche la gif
+    document.getElementById("quiz-area").style.display = "none"; // nasconde quiz
+    gameArea.style.display = "none"; // nasconde area di gioco
+    bgMusic.pause();
+  }
     }    
     
     startBtn.addEventListener("click", startGame);    
